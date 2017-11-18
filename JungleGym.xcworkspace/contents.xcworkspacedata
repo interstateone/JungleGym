@@ -4,4 +4,7 @@
    <FileRef
       location = "group:JungleGym.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Stub/JungleGymStub.xcodeproj">
+   </FileRef>
 </Workspace>
