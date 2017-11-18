@@ -14,6 +14,8 @@
 		CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; };
 		CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */; };
+		CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */; };
+		CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBE1FC0BF300023DB72 /* Process.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +42,8 @@
 		CA4BF3111FBE990800037C95 /* JungleGym.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JungleGym.entitlements; sourceTree = "<group>"; };
 		CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSimulatorControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorManager.swift; sourceTree = "<group>"; };
+		CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubAppGenerator.swift; sourceTree = "<group>"; };
+		CAF37CBE1FC0BF300023DB72 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
 				CA4BF3091FBE990800037C95 /* ViewController.swift */,
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
+				CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */,
+				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
 				CA4BF3101FBE990800037C95 /* Info.plist */,
@@ -95,6 +101,7 @@
 				CA4BF3001FBE990800037C95 /* Sources */,
 				CA4BF3011FBE990800037C95 /* Frameworks */,
 				CA4BF3021FBE990800037C95 /* Resources */,
+				CAF37CBB1FC0B0D20023DB72 /* Build Stub and Copy as Resource */,
 				CAF37CAE1FBFF64A0023DB72 /* Embed Frameworks */,
 				CAF37CB81FBFFB1D0023DB72 /* Code Sign Frameworks */,
 			);
@@ -173,6 +180,20 @@
 			shellPath = /bin/sh;
 			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\nIDENTITY=\"Mac Developer: Brandon Evans\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A\"";
 		};
+		CAF37CBB1FC0B0D20023DB72 /* Build Stub and Copy as Resource */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Stub and Copy as Resource";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcodebuild build -project Stub/JungleGymStub.xcodeproj -target JungleGymStub -sdk iphonesimulator\ncp \"Stub/build/Release-iphonesimulator/JungleGymStub.app/JungleGymStub\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Resources/JungleGymStub\"\nrm -r Stub/build\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -181,8 +202,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
+				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* ViewController.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
+				CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

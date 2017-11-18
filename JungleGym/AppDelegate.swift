@@ -14,8 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         do {
             let simulatorManager = try SimulatorManager()
             let simulator = try simulatorManager.allocateSimulator()
-            // This needs to be created by this process in order to remain sandboxed
-            let appURL = URL(fileURLWithPath: "/Users/brandon/Projects/JungleGym/sign-test/stub.app")
+            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
+            let appURL = try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
+            print(appURL)
             let pid = try simulatorManager.launchApp(at: appURL, in: simulator)
             print(pid)
         }
