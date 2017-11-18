@@ -13,6 +13,7 @@
 		CA4BF30F1FBE990800037C95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30D1FBE990800037C95 /* Main.storyboard */; };
 		CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; };
 		CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,7 @@
 		CA4BF3101FBE990800037C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA4BF3111FBE990800037C95 /* JungleGym.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JungleGym.entitlements; sourceTree = "<group>"; };
 		CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSimulatorControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
 				CA4BF3091FBE990800037C95 /* ViewController.swift */,
+				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
 				CA4BF3101FBE990800037C95 /* Info.plist */,
@@ -117,6 +120,11 @@
 					CA4BF3031FBE990800037C95 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -172,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* ViewController.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
 			);
@@ -301,7 +310,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JungleGym/JungleGym.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z2R9WCWER2;
@@ -317,7 +325,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JungleGym/JungleGym.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z2R9WCWER2;

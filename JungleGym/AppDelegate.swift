@@ -10,17 +10,18 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        do {
+            let simulatorManager = try SimulatorManager()
+            let simulator = try simulatorManager.allocateSimulator()
+            // This needs to be created by this process in order to remain sandboxed
+            let appURL = URL(fileURLWithPath: "/Users/brandon/Projects/JungleGym/sign-test/stub.app")
+            let pid = try simulatorManager.launchApp(at: appURL, in: simulator)
+            print(pid)
+        }
+        catch {
+            print(error)
+        }
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
 
