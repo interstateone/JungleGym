@@ -5,6 +5,9 @@
       location = "group:JungleGym.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:FBSimulatorControl/FBSimulatorControl.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Stub/JungleGymStub.xcodeproj">
    </FileRef>
 </Workspace>

@@ -11,7 +11,23 @@
 		CA4BF30A1FBE990800037C95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* ViewController.swift */; };
 		CA4BF30C1FBE990800037C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30B1FBE990800037C95 /* Assets.xcassets */; };
 		CA4BF30F1FBE990800037C95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30D1FBE990800037C95 /* Main.storyboard */; };
+		CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; };
+		CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CAF37CAE1FBFF64A0023DB72 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CA4BF3041FBE990800037C95 /* JungleGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JungleGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,6 +37,7 @@
 		CA4BF30E1FBE990800037C95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA4BF3101FBE990800037C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA4BF3111FBE990800037C95 /* JungleGym.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JungleGym.entitlements; sourceTree = "<group>"; };
+		CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSimulatorControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +57,7 @@
 			children = (
 				CA4BF3061FBE990800037C95 /* JungleGym */,
 				CA4BF3051FBE990800037C95 /* Products */,
+				CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +92,8 @@
 				CA4BF3001FBE990800037C95 /* Sources */,
 				CA4BF3011FBE990800037C95 /* Frameworks */,
 				CA4BF3021FBE990800037C95 /* Resources */,
+				CAF37CAE1FBFF64A0023DB72 /* Embed Frameworks */,
+				CAF37CB81FBFFB1D0023DB72 /* Code Sign Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,6 +149,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CAF37CB81FBFFB1D0023DB72 /* Code Sign Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Code Sign Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\nIDENTITY=\"Mac Developer: Brandon Evans\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CA4BF3001FBE990800037C95 /* Sources */ = {

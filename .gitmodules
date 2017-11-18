@@ -1,0 +1,3 @@
+[submodule "FBSimulatorControl"]
+	path = FBSimulatorControl
+	url = git@github.com:facebook/FBSimulatorControl.git
