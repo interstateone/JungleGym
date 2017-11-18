@@ -1,3 +1,6 @@
 [submodule "FBSimulatorControl"]
 	path = FBSimulatorControl
 	url = git@github.com:facebook/FBSimulatorControl.git
+[submodule "LLDBWrapper"]
+	path = LLDBWrapper
+	url = git@github.com:interstateone/LLDBWrapper.git

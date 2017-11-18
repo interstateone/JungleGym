@@ -16,6 +16,7 @@
 		CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */; };
 		CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */; };
 		CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBE1FC0BF300023DB72 /* Process.swift */; };
+		CAF37CC11FC0DA4D0023DB72 /* LLDBWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,7 @@
 		CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorManager.swift; sourceTree = "<group>"; };
 		CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubAppGenerator.swift; sourceTree = "<group>"; };
 		CAF37CBE1FC0BF300023DB72 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
+		CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LLDBWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF37CC11FC0DA4D0023DB72 /* LLDBWrapper.framework in Frameworks */,
 				CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +67,7 @@
 				CA4BF3061FBE990800037C95 /* JungleGym */,
 				CA4BF3051FBE990800037C95 /* Products */,
 				CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */,
+				CAF37CC01FC0DA4D0023DB72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +93,14 @@
 				CA4BF3111FBE990800037C95 /* JungleGym.entitlements */,
 			);
 			path = JungleGym;
+			sourceTree = "<group>";
+		};
+		CAF37CC01FC0DA4D0023DB72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
