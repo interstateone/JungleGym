@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import LLDBWrapper
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -19,6 +20,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print(appURL)
             let pid = try simulatorManager.launchApp(at: appURL, in: simulator)
             print(pid)
+
+            LLDBGlobals.initializeLLDBWrapper()
+
+            let debugger = try Debugger()
+            debugger.addBreakpoint(named: "_executePlayground") { process, _, _ in
+                print("TODO: evaluate playground expression")
+                _ = process?.continue()
+                return true
+            }
+            debugger.addBreakpoint(named: "_playgroundExecutionWillFinish") { process, _, _ in
+                print("TODO: tidy up")
+                _ = process?.continue()
+                return true
+            }
+            try debugger.attach(to: pid)
         }
         catch {
             print(error)

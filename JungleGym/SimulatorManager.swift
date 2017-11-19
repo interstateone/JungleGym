@@ -70,7 +70,7 @@ public class SimulatorManager {
         }
 
         let outputConfiguration = try FBProcessOutputConfiguration(stdOut: FBProcessOutputToFileDefaultLocation, stdErr: FBProcessOutputToFileDefaultLocation)
-        let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [:], waitForDebugger: false, output: outputConfiguration)
+        let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [:], waitForDebugger: true, output: outputConfiguration)
         return try simulator.launchApplication(launchConfiguration)
             .onQueue(.main, map: { processIDNumber in processIDNumber.intValue })
             .await() as! ProcessID
