@@ -204,7 +204,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild build -project Stub/JungleGymStub.xcodeproj -target JungleGymStub -sdk iphonesimulator\ncp \"Stub/build/Release-iphonesimulator/JungleGymStub.app/JungleGymStub\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Resources/JungleGymStub\"\nrm -r Stub/build\n";
+			shellScript = "pushd Stub\nxcrun -sdk iphonesimulator swift build --static-swift-stdlib -Xswiftc -sdk -Xswiftc $(xcrun -sdk iphonesimulator --show-sdk-path) -Xswiftc -target -Xswiftc x86_64-apple-ios11.0\npopd\ncp \"Stub/.build/debug/Stub\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Resources/JungleGymStub\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

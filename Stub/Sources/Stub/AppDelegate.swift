@@ -10,7 +10,6 @@ import Darwin
 import Foundation
 import UIKit
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let liveViewManager = LiveViewManager()
@@ -91,8 +90,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // Deliberate no-ops, these are used only as symbols for breakpoints
-    private func _executePlayground() {}
-    private func _playgroundExecutionWillFinish() {}
+    @inline(never)
+    func _executePlayground() {}
+    @inline(never)
+    func _playgroundExecutionWillFinish() {}
 }
 
 extension Notification.Name {

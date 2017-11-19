@@ -10,7 +10,4 @@
    <FileRef
       location = "group:LLDBWrapper/LLDBWrapper.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Stub/JungleGymStub.xcodeproj">
-   </FileRef>
 </Workspace>
