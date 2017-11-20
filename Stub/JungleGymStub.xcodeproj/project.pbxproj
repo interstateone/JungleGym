@@ -10,6 +10,7 @@
 		8359350BD8694E87D4F85C14 /* LiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 835933CF415FF5E3EB0E7CB6 /* LiveViewManager.m */; };
 		8359391ECA00E05925F530F6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83593727349AED79DFC4307E /* AppDelegate.m */; };
 		83593BFCC5EAFA9199ADBF70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8359380317879E65DEA1FCC3 /* main.m */; };
+		CAE3E1381FC275BF0080A900 /* DVTPlaygroundCommunication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE3E1371FC275BF0080A900 /* DVTPlaygroundCommunication.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		CAF37C511FBE9AE30023DB72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAF37C501FBE9AE30023DB72 /* Assets.xcassets */; };
 		CAF37C541FBE9AE30023DB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAF37C521FBE9AE30023DB72 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,6 +21,7 @@
 		83593727349AED79DFC4307E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8359380317879E65DEA1FCC3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83593A36FE06D59931637E74 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CAE3E1371FC275BF0080A900 /* DVTPlaygroundCommunication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTPlaygroundCommunication.framework; path = Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/DVTPlaygroundCommunication.framework; sourceTree = DEVELOPER_DIR; };
 		CAF37C461FBE9AE30023DB72 /* JungleGymStub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JungleGymStub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF37C501FBE9AE30023DB72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAF37C531FBE9AE30023DB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,17 +33,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAE3E1381FC275BF0080A900 /* DVTPlaygroundCommunication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CAE3E1361FC275BF0080A900 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAE3E1371FC275BF0080A900 /* DVTPlaygroundCommunication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CAF37C3D1FBE9AE30023DB72 = {
 			isa = PBXGroup;
 			children = (
 				CAF37C481FBE9AE30023DB72 /* JungleGymStub */,
 				CAF37C471FBE9AE30023DB72 /* Products */,
+				CAE3E1361FC275BF0080A900 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -272,8 +284,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z2R9WCWER2;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks";
 				INFOPLIST_FILE = JungleGymStub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.brandonevans.JungleGymStub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -287,8 +300,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z2R9WCWER2;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks";
 				INFOPLIST_FILE = JungleGymStub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.brandonevans.JungleGymStub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
