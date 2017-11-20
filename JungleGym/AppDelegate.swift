@@ -26,7 +26,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let debugger = try Debugger()
             debugger.addBreakpoint(named: "_executePlayground") { process, _, _ in
                 print("TODO: evaluate playground expression")
-                _ = process?.continue()
+                guard
+                    let process = process,
+                    let frame = process.allThreads.first?.allFrames.flatMap({ $0 }).first
+                else { return true }
+
+                if process.state != .running {
+                    print("---")
+                    print("State: \(process.state)")
+                    print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.lineEntry ?? "")
+                    print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.functionName ?? "")
+                }
+
+                let expression = """
+                import UIKit
+                import PlaygroundSupport
+                let view = UIView()
+                print(view)
+                view.backgroundColor = .red
+                view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+                PlaygroundPage.current.liveView = view
+                """
+                let result = debugger.evaluate(expression: expression, in: frame)
+                if let error = result?.error, error.error != 0 {
+                    print("Error evaluating expression: " + error.string)
+                }
+                else if let result = result {
+                    print(result.valueExpression)
+                }
+
+                _ = process.continue()
                 return true
             }
             debugger.addBreakpoint(named: "_playgroundExecutionWillFinish") { process, _, _ in

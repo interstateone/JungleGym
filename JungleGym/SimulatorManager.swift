@@ -65,12 +65,24 @@ public class SimulatorManager {
         }
 
         let installedApplications = try simulator.installedApplications().await() as! [FBInstalledApplication]
-        if !installedApplications.contains(where: { $0.bundle.bundleID == bundleID }) {
-            try simulator.installApplication(withPath: url.path).await()
+        if installedApplications.contains(where: { $0.bundle.bundleID == bundleID }) {
+            try simulator.uninstallApplication(withBundleID: bundleID).await()
         }
 
+        try simulator.installApplication(withPath: url.path).await()
+
         let outputConfiguration = try FBProcessOutputConfiguration(stdOut: FBProcessOutputToFileDefaultLocation, stdErr: FBProcessOutputToFileDefaultLocation)
-        let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [:], waitForDebugger: true, output: outputConfiguration)
+        let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [
+            // From ProcessInfo.processInfo.environment in a real playground
+            "DYLD_ROOT_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot",
+            "DYLD_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator",
+            "DYLD_FALLBACK_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks",
+            "DYLD_FALLBACK_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib",
+            "DYLD_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks"
+        ], waitForDebugger: true, output: outputConfiguration)
+
+        _ = try? simulator.killApplication(withBundleID: bundleID).await()
+
         return try simulator.launchApplication(launchConfiguration)
             .onQueue(.main, map: { processIDNumber in processIDNumber.intValue })
             .await() as! ProcessID

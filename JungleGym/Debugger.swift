@@ -33,6 +33,17 @@ public class Debugger {
         self.listener = listener
         self.target = target
         debugger.async = true
+
+        debugger.handleCommand("settings set target.use-all-compiler-flags 1")
+
+        let frameworkSearchPathURLs = [
+            // PlaygroundSupport
+            URL(fileURLWithPath: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/")
+        ]
+        debugger.handleCommand("settings set target.swift-framework-search-paths ''")
+        for searchPathURL in frameworkSearchPathURLs {
+            debugger.handleCommand("settings append target.swift-framework-search-paths '\(searchPathURL.path)'")
+        }
     }
 
     public func addBreakpoint(named name: String, callback: ((LLDBProcess?, LLDBThread?, LLDBBreakpointLocation?) -> Bool)? = nil) {
@@ -76,6 +87,7 @@ public class Debugger {
 
             let standardOutputData = process.readFromStandardOutput()
             if let standardOutput = String(data: standardOutputData, encoding: .utf8) {
+                print("---")
                 print(standardOutput)
             }
         }
@@ -84,6 +96,19 @@ public class Debugger {
             // Paused after attaching, continuing
             process.continue()
         }
+    }
+
+    @discardableResult
+    public func evaluate(expression: String, in frame: LLDBFrame) -> LLDBValue? {
+        guard let options = LLDBExpressionOptions() else { return nil }
+        options.setLanguage(.swift)
+        options.ignoreBreakpoints = true
+        options.autoApplyFixIts = false
+        options.unwindOnError = false
+        options.trapExceptions = false
+        options.timeoutInMicroseconds = 0
+
+        return frame.evaluateExpression(expression, options: options)
     }
 }
 
