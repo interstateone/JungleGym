@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */; };
 		CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3071FBE990800037C95 /* AppDelegate.swift */; };
 		CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */; };
 		CA4BF30C1FBE990800037C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30B1FBE990800037C95 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
 		CA4BF3041FBE990800037C95 /* JungleGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JungleGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4BF3071FBE990800037C95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
+				CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */,
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
 				CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */,
 				CAF37CC31FC165910023DB72 /* Debugger.swift */,
@@ -221,6 +224,7 @@
 				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
+				CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */,
 				CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
