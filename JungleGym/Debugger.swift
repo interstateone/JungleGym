@@ -102,11 +102,14 @@ public class Debugger {
     public func evaluate(expression: String, in frame: LLDBFrame) -> LLDBValue? {
         guard let options = LLDBExpressionOptions() else { return nil }
         options.setLanguage(.swift)
-        options.ignoreBreakpoints = true
+        options.ignoreBreakpoints = false
         options.autoApplyFixIts = false
         options.unwindOnError = false
         options.trapExceptions = false
         options.timeoutInMicroseconds = 0
+        options.stopOthers = false
+        // Need to sort out DVTPlaygroundCommunication before using this
+        options.setPlaygroundTransformEnabled(false)
 
         return frame.evaluateExpression(expression, options: options)
     }
