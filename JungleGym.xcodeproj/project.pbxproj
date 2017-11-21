@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3071FBE990800037C95 /* AppDelegate.swift */; };
-		CA4BF30A1FBE990800037C95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* ViewController.swift */; };
+		CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */; };
 		CA4BF30C1FBE990800037C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30B1FBE990800037C95 /* Assets.xcassets */; };
 		CA4BF30F1FBE990800037C95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30D1FBE990800037C95 /* Main.storyboard */; };
 		CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		CA4BF3041FBE990800037C95 /* JungleGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JungleGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4BF3071FBE990800037C95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA4BF3091FBE990800037C95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorViewController.swift; sourceTree = "<group>"; };
 		CA4BF30B1FBE990800037C95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA4BF30E1FBE990800037C95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA4BF3101FBE990800037C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,10 +85,10 @@
 			isa = PBXGroup;
 			children = (
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
-				CA4BF3091FBE990800037C95 /* ViewController.swift */,
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
 				CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */,
 				CAF37CC31FC165910023DB72 /* Debugger.swift */,
+				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
 				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
@@ -219,7 +219,7 @@
 				CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */,
 				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
 				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
-				CA4BF30A1FBE990800037C95 /* ViewController.swift in Sources */,
+				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
 				CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */,
 			);

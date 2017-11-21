@@ -8,6 +8,7 @@
 
 import Cocoa
 import LLDBWrapper
+import FBSimulatorControl
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -42,10 +43,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 import UIKit
                 import PlaygroundSupport
                 let view = UIView()
-                print(view)
                 view.backgroundColor = .red
-                view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+                view.alpha = 0
+                view.frame = UIScreen.main.bounds
                 PlaygroundPage.current.liveView = view
+                UIView.animate(withDuration: 2.0) { view.alpha = 1 }
                 """
                 let result = debugger.evaluate(expression: expression, in: frame)
                 if let error = result?.error, error.error != 0 {
@@ -64,6 +66,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return true
             }
             try debugger.attach(to: pid)
+
+            guard let viewController = NSApplication.shared.windows.first?.contentViewController as? SimulatorViewController else { return }
+            // Having troubles getting to the device property from Swift...
+            viewController.simulatorScreenScale = 2.0 // simulator.device.deviceType.mainScreenScale
+            if let initialSurface = try simulator.framebuffer().surface?.attach(viewController, on: DispatchQueue.main) {
+                viewController.didChange(initialSurface.takeUnretainedValue())
+            }
         }
         catch {
             print(error)
