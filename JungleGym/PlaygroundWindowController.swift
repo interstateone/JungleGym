@@ -13,6 +13,9 @@ class PlaygroundWindowController: NSWindowController {
     var editorViewController: EditorViewController!
     var simulatorViewController: SimulatorViewController!
 
+    @IBOutlet weak var runButton: NSToolbarItem!
+    @IBOutlet weak var simulatorPopupButton: NSToolbarItem!
+
     var session: ExecutionSession?
 
     override func windowDidLoad() {

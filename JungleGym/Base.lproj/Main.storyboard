@@ -684,19 +684,65 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" customClass="PlaygroundWindowController" customModule="JungleGym" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="JungleGym" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="JungleGym" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <toolbar key="toolbar" implicitIdentifier="742BE500-D5CA-43AC-A46D-9D9BBF4EB5A0" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="gJw-9K-f15">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6Ch-bX-ig7"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="xXt-dq-Kj1"/>
+                                <toolbarItem implicitItemIdentifier="7F11C5DB-E6DA-4C26-9946-6324AE532B00" label="Run" paletteLabel="Run" id="PEf-hP-yjn">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="32" height="25"/>
+                                    <size key="maxSize" width="127" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="stG-37-Xog">
+                                        <rect key="frame" x="0.0" y="14" width="127" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Run" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FM9-HY-f19">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="98CA28CA-C051-4D14-ABBE-432218188BFE" label="Simulator" paletteLabel="Simulator" id="v9l-WH-5qM">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="100" height="28"/>
+                                    <size key="maxSize" width="100" height="28"/>
+                                    <popUpButton key="view" verticalHuggingPriority="750" id="y9D-3x-nfo">
+                                        <rect key="frame" x="0.0" y="14" width="100" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <popUpButtonCell key="cell" type="roundTextured" title="iPhone 6" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="GGx-fg-GBN" id="a4e-YP-jge">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="Ggt-ml-sON">
+                                                <items>
+                                                    <menuItem title="iPhone 6" state="on" id="GGx-fg-GBN"/>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                    </popUpButton>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="PEf-hP-yjn"/>
+                                <toolbarItem reference="v9l-WH-5qM"/>
+                                <toolbarItem reference="xXt-dq-Kj1"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
                     </window>
+                    <connections>
+                        <outlet property="runButton" destination="PEf-hP-yjn" id="xZo-0K-K4j"/>
+                        <outlet property="simulatorPopupButton" destination="v9l-WH-5qM" id="CG4-Pt-f1z"/>
+                    </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="74" y="289"/>
         </scene>
         <!--Simulator View Controller-->
         <scene sceneID="hIz-AP-VOD">
