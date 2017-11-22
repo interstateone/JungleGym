@@ -30,3 +30,7 @@ class SimulatorViewController: NSViewController, FBFramebufferSurfaceConsumer {
 
     public let consumerIdentifier: String = "ca.brandonevans.JungleGym.\(String(describing: SimulatorViewController.self))"
 }
+
+extension NSStoryboard.SceneIdentifier {
+    static let simulatorViewController = NSStoryboard.SceneIdentifier(rawValue: String(describing: SimulatorViewController.self))
+}

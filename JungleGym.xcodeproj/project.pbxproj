@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */; };
+		CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */; };
+		CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */; };
 		CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3071FBE990800037C95 /* AppDelegate.swift */; };
 		CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */; };
 		CA4BF30C1FBE990800037C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30B1FBE990800037C95 /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
+		CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundWindowController.swift; sourceTree = "<group>"; };
 		CA4BF3041FBE990800037C95 /* JungleGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JungleGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4BF3071FBE990800037C95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
 				CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */,
 				CAF37CC31FC165910023DB72 /* Debugger.swift */,
+				CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */,
+				CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */,
 				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
 				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
@@ -222,6 +228,8 @@
 				CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */,
 				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
 				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
+				CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */,
+				CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
 				CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */,

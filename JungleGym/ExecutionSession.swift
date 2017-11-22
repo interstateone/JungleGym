@@ -10,6 +10,10 @@ import Foundation
 import FBSimulatorControl
 import LLDBWrapper
 
+public protocol ExecutionSessionDelegate: class {
+    func stateChanged(to state: ExecutionSession.State)
+}
+
 public class ExecutionSession {
     public enum State {
         case waiting, preparing, ready, executing, finished
@@ -20,10 +24,15 @@ public class ExecutionSession {
         static let invalidState: (State, State) -> Error = { from, to in Error(reason: "Unable to transition from \(from) to \(to)") }
     }
 
-    var state = State.waiting
+    var state = State.waiting {
+        didSet {
+            delegate?.stateChanged(to: state)
+        }
+    }
     let simulatorManager: SimulatorManager
     var simulator: FBSimulator?
     var debugger: Debugger?
+    weak var delegate: ExecutionSessionDelegate?
 
     public init() throws {
         simulatorManager = try SimulatorManager()

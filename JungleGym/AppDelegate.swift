@@ -14,7 +14,14 @@ import FBSimulatorControl
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         do {
+            guard
+                let window = NSApplication.shared.windows.first,
+                let windowController = window.windowController as? PlaygroundWindowController
+            else { return }
+
             let executionSession = try ExecutionSession()
+            windowController.session = executionSession
+
             let simulator = try executionSession.prepare(with: """
                 import UIKit
                 import PlaygroundSupport
@@ -25,14 +32,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 PlaygroundPage.current.liveView = view
                 UIView.animate(withDuration: 2.0) { view.alpha = 1 }
             """)
-            try executionSession.execute()
 
-            guard let viewController = NSApplication.shared.windows.first?.contentViewController as? SimulatorViewController else { return }
+            executionSession.delegate = windowController.editorViewController
             // Having troubles getting to the device property from Swift...
-            viewController.simulatorScreenScale = 2.0 // simulator.device.deviceType.mainScreenScale
-            if let initialSurface = try simulator.framebuffer().surface?.attach(viewController, on: DispatchQueue.main) {
-                viewController.didChange(initialSurface.takeUnretainedValue())
+            windowController.simulatorViewController.simulatorScreenScale = 2.0 // simulator.device.deviceType.mainScreenScale
+            if let initialSurface = try simulator.framebuffer().surface?.attach(windowController.simulatorViewController, on: DispatchQueue.main) {
+                windowController.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
             }
+
+            try executionSession.execute()
         }
         catch {
             print(error)
