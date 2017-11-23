@@ -6,7 +6,8 @@
 //  Copyright © 2017 Brandon Evans. All rights reserved.
 //
 
-import Foundation
+import Cocoa
+import CoreGraphics
 
 public class StubAppGenerator {
     /// Creates a code-signed app bundle with a stub binary, unless it already exists
@@ -33,6 +34,24 @@ public class StubAppGenerator {
         let stubBinaryDestination = appBundleURL.appendingPathComponent("JungleGymStub")
         try fileManager.copyItem(at: stubBinarySource, to: stubBinaryDestination)
 
+        // Add launch images
+        struct LaunchImage {
+            let name: String
+            let size: CGSize
+            let scale: CGFloat
+            let suffix: String?
+            static let _4inch = LaunchImage(name: "Default", size: CGSize(width: 320, height: 568), scale: 2, suffix: "-568h")
+            static let _4_7inch = LaunchImage(name: "Default", size: CGSize(width: 375, height: 667), scale: 2, suffix: "-667h")
+            static let _5_5inch = LaunchImage(name: "Default", size: CGSize(width: 414, height: 736), scale: 3, suffix: "-736h")
+            static let _5_8inch = LaunchImage(name: "Default", size: CGSize(width: 375, height: 812), scale: 3, suffix: "-812h")
+            static let all: [LaunchImage] = [._4inch, ._4_7inch, ._5_5inch, ._5_8inch]
+        }
+        for image in LaunchImage.all {
+            let launchImageURL = appBundleURL.appendingPathComponent(String(format: "%@%@@%.0fx.png", image.name, image.suffix ?? "", image.scale))
+            let image = NSImage.imageOfSize(CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale), color: .black)
+            try image?.pngData?.write(to: launchImageURL)
+        }
+
         // Create Info.plist
         let infoPlistURL = appBundleURL.appendingPathComponent("Info.plist")
         let infoPlist: [String: Any] = [
@@ -42,11 +61,23 @@ public class StubAppGenerator {
             "CFBundleName": "JungleGymStub",
             "CFBundlePackageType": "APPL",
             "CFBundleShortVersionString": "1.0",
+            "CFBundleSupportedPlatforms": ["iphonesimulator"],
             "CFBundleVersion": "1",
+            "LSBackgroundOnly": true,
             "LSRequiresIPhoneOS": true,
+            "UIDeviceFamily": [1, 2],
+            "UILaunchImages": LaunchImage.all.map { image in
+                [
+                    "UILaunchImageName": "\(image.name)\(image.suffix ?? "")",
+                    "UILaunchImageMinimumOSVersion": "8.0",
+                    "UILaunchImageSize": String(format: "{%.0f, %.0f}", image.size.width, image.size.height)
+                ]
+            },
             "UIRequiredDeviceCapabilities": ["armv7"],
             "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
-            "UISupportedInterfaceOrientations~ipad": ["UIInterfaceOrientationPortrait"]
+            "UISupportedInterfaceOrientations~ipad": ["UIInterfaceOrientationPortrait"],
+            "UIStatusBarHidden": true,
+            "UIViewControllerBasedStatusBarAppearance": false
         ]
         let infoPlistData = try PropertyListSerialization.data(fromPropertyList: infoPlist, format: .binary, options: PropertyListSerialization.WriteOptions())
         try infoPlistData.write(to: infoPlistURL)
@@ -67,5 +98,23 @@ public class StubAppGenerator {
         codesignProcess.waitUntilExit()
 
         return appBundleURL
+    }
+}
+
+extension NSImage {
+    static func imageOfSize(_ size: CGSize, color: NSColor) -> NSImage? {
+        let rect = CGRect(origin: .zero, size: size)
+        let context = CGContext(data: nil, width: Int(rect.size.width), height: Int(rect.size.height), bitsPerComponent: 8, bytesPerRow: 0, space: NSColorSpace.genericRGB.cgColorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue)!
+        context.setFillColor(NSColor.white.cgColor)
+        context.fill(rect)
+        guard let imageRef = context.makeImage() else { return nil }
+        return NSImage(cgImage: imageRef, size: rect.size)
+    }
+
+    var pngData: Data? {
+        lockFocus()
+        let bitmapRep = NSBitmapImageRep(focusedViewRect: CGRect(origin: .zero, size: size))
+        unlockFocus()
+        return bitmapRep?.representation(using: .png, properties: [:])
     }
 }
