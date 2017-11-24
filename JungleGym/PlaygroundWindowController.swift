@@ -17,9 +17,18 @@ class PlaygroundWindowController: NSWindowController {
     @IBOutlet weak var simulatorPopupButton: NSToolbarItem!
 
     let playground = Playground()
+    var simulatorManager: SimulatorManager!
     var session: ExecutionSession?
 
     override func windowDidLoad() {
+        do {
+            simulatorManager = try SimulatorManager()
+        }
+        catch {
+            // NSAlert, exit
+            assertionFailure(error.localizedDescription)
+        }
+
         splitViewController = NSSplitViewController()
         splitViewController.view.wantsLayer = true
         splitViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,10 +52,11 @@ class PlaygroundWindowController: NSWindowController {
 
     func executePlayground() {
         do {
-            let session = try ExecutionSession()
+            let simulator = try simulatorManager.allocateSimulator()
+            let session = ExecutionSession(simulator: simulator)
             self.session = session
 
-            let simulator = try session.prepare(with: playground.contents)
+            try session.prepare(with: playground.contents)
 
             session.delegate = editorViewController
 

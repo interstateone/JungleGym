@@ -29,21 +29,18 @@ public class ExecutionSession {
             delegate?.stateChanged(to: state)
         }
     }
-    let simulatorManager: SimulatorManager
-    var simulator: FBSimulator?
+
+    let simulator: FBSimulator
     var debugger: Debugger?
     weak var delegate: ExecutionSessionDelegate?
 
-    public init() throws {
-        simulatorManager = try SimulatorManager()
+    public init(simulator: FBSimulator) {
+        self.simulator = simulator
     }
 
-    func prepare(with expression: String) throws -> FBSimulator {
+    func prepare(with expression: String) throws {
         guard case .waiting = state else { throw Error.invalidState(state, .preparing) }
         state = .preparing
-
-        let simulator = try simulatorManager.allocateSimulator()
-        self.simulator = simulator
 
         LLDBGlobals.initializeLLDBWrapper()
 
@@ -83,13 +80,11 @@ public class ExecutionSession {
         }
 
         state = .ready
-        return simulator
     }
 
     func execute() throws {
         guard
             case .ready = state,
-            let simulator = simulator,
             let debugger = debugger
         else { throw Error.invalidState(state, .executing) }
         state = .executing
@@ -97,7 +92,7 @@ public class ExecutionSession {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
         let appURL = try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
         print(appURL)
-        let pid = try simulatorManager.launchApp(at: appURL, in: simulator)
+        let pid = try simulator.launchApp(at: appURL)
         print(pid)
         try debugger.attach(to: pid)
     }

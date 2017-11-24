@@ -12,7 +12,6 @@ import FBSimulatorControl
 public class SimulatorManager {
     public enum Error: Swift.Error {
         case unableToCreateDeviceSet
-        case invalidApplication
     }
 
     let control: FBSimulatorControl
@@ -53,23 +52,29 @@ public class SimulatorManager {
 
         return simulator
     }
+}
 
-    func launchApp(at url: URL, in simulator: FBSimulator) throws -> ProcessID {
+extension FBSimulator {
+    public enum Error: Swift.Error {
+        case invalidApplication
+    }
+
+    public func launchApp(at url: URL) throws -> ProcessID {
         let infoPlistURL = url.appendingPathComponent("Info.plist")
         let infoPlistData = try Data(contentsOf: infoPlistURL)
         guard
             let infoPlist = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any],
             let bundleID = infoPlist["CFBundleIdentifier"] as? String
-        else {
-            throw Error.invalidApplication
+            else {
+                throw Error.invalidApplication
         }
 
-        let installedApplications = try simulator.installedApplications().await() as! [FBInstalledApplication]
+        let installedApplications = try self.installedApplications().await() as! [FBInstalledApplication]
         if installedApplications.contains(where: { $0.bundle.bundleID == bundleID }) {
-            try simulator.uninstallApplication(withBundleID: bundleID).await()
+            try uninstallApplication(withBundleID: bundleID).await()
         }
 
-        try simulator.installApplication(withPath: url.path).await()
+        try installApplication(withPath: url.path).await()
 
         let outputConfiguration = try FBProcessOutputConfiguration(stdOut: FBProcessOutputToFileDefaultLocation, stdErr: FBProcessOutputToFileDefaultLocation)
         let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [
@@ -79,11 +84,11 @@ public class SimulatorManager {
             "DYLD_FALLBACK_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks",
             "DYLD_FALLBACK_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib",
             "DYLD_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks"
-        ], waitForDebugger: true, output: outputConfiguration)
+            ], waitForDebugger: true, output: outputConfiguration)
 
-        _ = try? simulator.killApplication(withBundleID: bundleID).await()
+        _ = try? killApplication(withBundleID: bundleID).await()
 
-        return try simulator.launchApplication(launchConfiguration)
+        return try launchApplication(launchConfiguration)
             .onQueue(.main, map: { processIDNumber in processIDNumber.intValue })
             .await() as! ProcessID
     }
