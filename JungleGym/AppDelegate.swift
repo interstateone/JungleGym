@@ -13,38 +13,28 @@ import FBSimulatorControl
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        do {
-            guard
-                let window = NSApplication.shared.windows.first,
-                let windowController = window.windowController as? PlaygroundWindowController
-            else { return }
+        guard
+            let window = NSApplication.shared.windows.first,
+            let windowController = window.windowController as? PlaygroundWindowController
+        else { return }
 
-            let executionSession = try ExecutionSession()
-            windowController.session = executionSession
+        windowController.playground.contents = """
+            import UIKit
+            import PlaygroundSupport
 
-            let simulator = try executionSession.prepare(with: """
-                import UIKit
-                import PlaygroundSupport
-                let view = UIView()
-                view.backgroundColor = .red
-                view.alpha = 0
-                view.frame = UIScreen.main.bounds
-                PlaygroundPage.current.liveView = view
-                UIView.animate(withDuration: 2.0) { view.alpha = 1 }
-            """)
+            let view = UIView()
+            view.frame = UIScreen.main.bounds
+            view.backgroundColor = .white
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = "Is it safe?"
+            view.addSubview(label)
+            NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
 
-            executionSession.delegate = windowController.editorViewController
-            // Having troubles getting to the device property from Swift...
-            windowController.simulatorViewController.simulatorScreenScale = 2.0 // simulator.device.deviceType.mainScreenScale
-            if let initialSurface = try simulator.framebuffer().surface?.attach(windowController.simulatorViewController, on: DispatchQueue.main) {
-                windowController.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
-            }
-
-            try executionSession.execute()
-        }
-        catch {
-            print(error)
-        }
+            PlaygroundPage.current.liveView = view
+        """
     }
 }
-

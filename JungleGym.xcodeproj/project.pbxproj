@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3018621FC7DE7500F0F070 /* Playground.swift */; };
 		CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */; };
 		CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */; };
 		CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CA3018621FC7DE7500F0F070 /* Playground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
 		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
 		CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundWindowController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
 				CA4BF3101FBE990800037C95 /* Info.plist */,
 				CA4BF3111FBE990800037C95 /* JungleGym.entitlements */,
+				CA3018621FC7DE7500F0F070 /* Playground.swift */,
 			);
 			path = JungleGym;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */,
 				CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,
+				CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
 				CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */,
 				CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */,
