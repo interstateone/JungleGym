@@ -47,7 +47,8 @@ public class SimulatorManager {
 
         if simulator.state != .booted {
             print("Booting Simulator \(simulator)")
-            try simulator.boot().await()
+            let config = FBSimulatorBootConfiguration.default.withOptions([.enableDirectLaunch, .awaitServices])
+            try simulator.boot(with: config).await()
         }
 
         return simulator
