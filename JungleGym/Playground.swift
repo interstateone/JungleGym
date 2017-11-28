@@ -10,4 +10,8 @@ import Foundation
 
 public class Playground {
     public var contents: String = ""
+
+    public init(contents: String) {
+        self.contents = contents
+    }
 }

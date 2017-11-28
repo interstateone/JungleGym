@@ -18,23 +18,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let windowController = window.windowController as? PlaygroundWindowController
         else { return }
 
-        windowController.playground.contents = """
-            import UIKit
-            import PlaygroundSupport
+        windowController.playground = Playground(contents: """
+        import UIKit
+        import PlaygroundSupport
 
-            let view = UIView()
-            view.frame = UIScreen.main.bounds
-            view.backgroundColor = .white
-            let label = UILabel()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = "Is it safe?"
-            view.addSubview(label)
-            NSLayoutConstraint.activate([
+        let view = UIView()
+        view.frame = UIScreen.main.bounds
+        view.backgroundColor = .white
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Is it safe?"
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
+        ])
 
-            PlaygroundPage.current.liveView = view
-        """
+        PlaygroundPage.current.liveView = view
+        """)
     }
 }

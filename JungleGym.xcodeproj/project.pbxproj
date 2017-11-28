@@ -15,12 +15,16 @@
 		CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */; };
 		CA4BF30C1FBE990800037C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30B1FBE990800037C95 /* Assets.xcassets */; };
 		CA4BF30F1FBE990800037C95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA4BF30D1FBE990800037C95 /* Main.storyboard */; };
-		CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; };
-		CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CA5075151FCD1B5900E4F0FB /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */; };
+		CA5075161FCD1B5900E4F0FB /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA5075171FCD1B5900E4F0FB /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */; };
+		CA5075181FCD1B5900E4F0FB /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA50751F1FCD1B8A00E4F0FB /* LLDBWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA50751D1FCD1B7800E4F0FB /* LLDBWrapper.framework */; };
+		CAF37A271FCD07A50080FFB9 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37A261FCD07A50080FFB9 /* RulerView.swift */; };
+		CAF37A291FCD07BE0080FFB9 /* SwiftSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37A281FCD07BE0080FFB9 /* SwiftSyntaxHighlighter.swift */; };
 		CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */; };
 		CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */; };
 		CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBE1FC0BF300023DB72 /* Process.swift */; };
-		CAF37CC11FC0DA4D0023DB72 /* LLDBWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */; };
 		CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CC31FC165910023DB72 /* Debugger.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +35,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CAF37CAD1FBFF64A0023DB72 /* FBSimulatorControl.framework in Embed Frameworks */,
+				CA5075161FCD1B5900E4F0FB /* FBSimulatorControl.framework in Embed Frameworks */,
+				CA5075181FCD1B5900E4F0FB /* SourceKittenFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,11 +55,15 @@
 		CA4BF30E1FBE990800037C95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA4BF3101FBE990800037C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA4BF3111FBE990800037C95 /* JungleGym.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JungleGym.entitlements; sourceTree = "<group>"; };
-		CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSimulatorControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SourceKittenFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSimulatorControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA50751D1FCD1B7800E4F0FB /* LLDBWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LLDBWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF37A261FCD07A50080FFB9 /* RulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerView.swift; sourceTree = "<group>"; };
+		CAF37A281FCD07BE0080FFB9 /* SwiftSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSyntaxHighlighter.swift; sourceTree = "<group>"; };
+		CAF37A2C1FCD080A0080FFB9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorManager.swift; sourceTree = "<group>"; };
 		CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubAppGenerator.swift; sourceTree = "<group>"; };
 		CAF37CBE1FC0BF300023DB72 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
-		CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LLDBWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF37CC31FC165910023DB72 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,8 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAF37CC11FC0DA4D0023DB72 /* LLDBWrapper.framework in Frameworks */,
-				CAF37CAC1FBFF64A0023DB72 /* FBSimulatorControl.framework in Frameworks */,
+				CA50751F1FCD1B8A00E4F0FB /* LLDBWrapper.framework in Frameworks */,
+				CA5075151FCD1B5900E4F0FB /* FBSimulatorControl.framework in Frameworks */,
+				CA5075171FCD1B5900E4F0FB /* SourceKittenFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,10 +84,12 @@
 		CA4BF2FB1FBE990700037C95 = {
 			isa = PBXGroup;
 			children = (
+				CAF37A2C1FCD080A0080FFB9 /* README.md */,
 				CA4BF3061FBE990800037C95 /* JungleGym */,
 				CA4BF3051FBE990800037C95 /* Products */,
-				CAF37CAB1FBFF64A0023DB72 /* FBSimulatorControl.framework */,
-				CAF37CC01FC0DA4D0023DB72 /* Frameworks */,
+				CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */,
+				CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */,
+				CA50751D1FCD1B7800E4F0FB /* LLDBWrapper.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +104,7 @@
 		CA4BF3061FBE990800037C95 /* JungleGym */ = {
 			isa = PBXGroup;
 			children = (
+				CAF37A2B1FCD07E30080FFB9 /* Editor */,
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
 				CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */,
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
@@ -101,21 +114,22 @@
 				CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */,
 				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
 				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
+				CA3018621FC7DE7500F0F070 /* Playground.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
 				CA4BF3101FBE990800037C95 /* Info.plist */,
 				CA4BF3111FBE990800037C95 /* JungleGym.entitlements */,
-				CA3018621FC7DE7500F0F070 /* Playground.swift */,
 			);
 			path = JungleGym;
 			sourceTree = "<group>";
 		};
-		CAF37CC01FC0DA4D0023DB72 /* Frameworks */ = {
+		CAF37A2B1FCD07E30080FFB9 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				CAF37CC21FC0DA4D0023DB72 /* LLDBWrapper.framework */,
+				CAF37A261FCD07A50080FFB9 /* RulerView.swift */,
+				CAF37A281FCD07BE0080FFB9 /* SwiftSyntaxHighlighter.swift */,
 			);
-			name = Frameworks;
+			path = Editor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,7 +248,9 @@
 				CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */,
 				CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,
+				CAF37A271FCD07A50080FFB9 /* RulerView.swift in Sources */,
 				CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */,
+				CAF37A291FCD07BE0080FFB9 /* SwiftSyntaxHighlighter.swift in Sources */,
 				CA4BF3081FBE990800037C95 /* AppDelegate.swift in Sources */,
 				CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */,
 				CAF37CBD1FC0B3830023DB72 /* StubAppGenerator.swift in Sources */,

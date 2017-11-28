@@ -11,6 +11,15 @@
       location = "group:LLDBWrapper/LLDBWrapper.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SourceKitten/Carthage/Checkouts/SWXMLHash/SWXMLHash.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SourceKitten/Carthage/Checkouts/Yams/Yams.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SourceKitten/sourcekitten.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Stub/JungleGymStub.xcodeproj">
    </FileRef>
 </Workspace>

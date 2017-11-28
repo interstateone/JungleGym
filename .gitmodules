@@ -4,3 +4,6 @@
 [submodule "LLDBWrapper"]
 	path = LLDBWrapper
 	url = git@github.com:interstateone/LLDBWrapper.git
+[submodule "SourceKitten"]
+	path = SourceKitten
+	url = git@github.com:jpsim/SourceKitten.git

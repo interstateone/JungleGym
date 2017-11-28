@@ -16,7 +16,13 @@ class PlaygroundWindowController: NSWindowController {
     @IBOutlet weak var runButton: NSToolbarItem!
     @IBOutlet weak var simulatorPopupButton: NSToolbarItem!
 
-    let playground = Playground()
+    var playground = Playground(contents: "") {
+        didSet {
+            if isWindowLoaded {
+                editorViewController.contents = playground.contents
+            }
+        }
+    }
     var simulatorManager: SimulatorManager!
     var session: ExecutionSession?
 
@@ -38,8 +44,11 @@ class PlaygroundWindowController: NSWindowController {
         editorViewController = NSStoryboard.main.instantiateController(withIdentifier: .editorViewController) as! EditorViewController
         let editorItem = NSSplitViewItem(viewController: editorViewController)
         editorItem.canCollapse = false
+        editorItem.holdingPriority = NSLayoutConstraint.Priority(rawValue: 251)
         editorViewController.view.translatesAutoresizingMaskIntoConstraints = false
         editorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        editorViewController.contents = playground.contents
+        editorViewController.delegate = self
 
         simulatorViewController = NSStoryboard.main.instantiateController(withIdentifier: .simulatorViewController) as! SimulatorViewController
         let simulatorItem = NSSplitViewItem(viewController: simulatorViewController)
@@ -79,6 +88,12 @@ extension PlaygroundWindowController {
     @IBAction
     func executePlayground(sender: Any?) {
         executePlayground()
+    }
+}
+
+extension PlaygroundWindowController: EditorViewDelegate {
+    func editorTextDidChange(_ text: String) {
+        playground.contents = text
     }
 }
 
