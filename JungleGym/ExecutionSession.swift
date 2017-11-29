@@ -9,6 +9,7 @@
 import Foundation
 import FBSimulatorControl
 import LLDBWrapper
+import Result
 
 public protocol ExecutionSessionDelegate: class {
     func stateChanged(to state: ExecutionSession.State)
@@ -82,18 +83,37 @@ public class ExecutionSession {
         state = .ready
     }
 
-    func execute() throws {
+    func execute(_ completion: ((Result<Void, AnyError>) -> Void)? = nil) {
         guard
             case .ready = state,
             let debugger = debugger
-        else { throw Error.invalidState(state, .executing) }
+        else {
+            Result(error: AnyError(Error.invalidState(state, .executing)))
+                .perform(completion, on: .main)
+            return
+        }
+
         state = .executing
 
-        let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
-        let appURL = try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
-        print(appURL)
-        let pid = try simulator.launchApp(at: appURL)
-        print(pid)
-        try debugger.attach(to: pid)
+        switch Result(attempt: { () -> URL in
+            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
+            return try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
+        }) {
+        case let .success(appURL):
+            print(appURL)
+            simulator.launchApp(at: appURL) { result in
+                result
+                .flatMap { pid in
+                    Result(attempt: {
+                        print(pid)
+                        try debugger.attach(to: pid)
+                    })
+                }
+                .perform(completion, on: .main)
+            }
+        case let .failure(error):
+            Result(error: AnyError(error))
+                .perform(completion, on: .main)
+        }
     }
 }

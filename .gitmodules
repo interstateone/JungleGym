@@ -7,3 +7,6 @@
 [submodule "SourceKitten"]
 	path = SourceKitten
 	url = git@github.com:jpsim/SourceKitten.git
+[submodule "Result"]
+	path = Result
+	url = git@github.com:antitypical/Result.git

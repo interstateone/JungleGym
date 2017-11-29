@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3018621FC7DE7500F0F070 /* Playground.swift */; };
+		CA4A41431FCE5379003FD021 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; };
+		CA4A41441FCE5379003FD021 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA4A41461FCE61AD003FD021 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4A41451FCE61AD003FD021 /* Result.swift */; };
 		CA4AA7F31FC3E0E200113C8E /* ExecutionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */; };
 		CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */; };
 		CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */; };
@@ -35,6 +38,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CA4A41441FCE5379003FD021 /* Result.framework in Embed Frameworks */,
 				CA5075161FCD1B5900E4F0FB /* FBSimulatorControl.framework in Embed Frameworks */,
 				CA5075181FCD1B5900E4F0FB /* SourceKittenFramework.framework in Embed Frameworks */,
 			);
@@ -45,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		CA3018621FC7DE7500F0F070 /* Playground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
+		CA4A41421FCE5379003FD021 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA4A41451FCE61AD003FD021 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
 		CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundWindowController.swift; sourceTree = "<group>"; };
@@ -75,6 +81,7 @@
 				CA50751F1FCD1B8A00E4F0FB /* LLDBWrapper.framework in Frameworks */,
 				CA5075151FCD1B5900E4F0FB /* FBSimulatorControl.framework in Frameworks */,
 				CA5075171FCD1B5900E4F0FB /* SourceKittenFramework.framework in Frameworks */,
+				CA4A41431FCE5379003FD021 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +97,7 @@
 				CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */,
 				CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */,
 				CA50751D1FCD1B7800E4F0FB /* LLDBWrapper.framework */,
+				CA4A41421FCE5379003FD021 /* Result.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +122,7 @@
 				CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */,
 				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
 				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
+				CA4A41451FCE61AD003FD021 /* Result.swift */,
 				CA3018621FC7DE7500F0F070 /* Playground.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
@@ -245,6 +254,7 @@
 				CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */,
 				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
 				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
+				CA4A41461FCE61AD003FD021 /* Result.swift in Sources */,
 				CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */,
 				CA4AA7F51FC3EB8A00113C8E /* EditorViewController.swift in Sources */,
 				CA4BF30A1FBE990800037C95 /* SimulatorViewController.swift in Sources */,

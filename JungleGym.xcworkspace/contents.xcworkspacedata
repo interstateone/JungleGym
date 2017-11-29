@@ -20,6 +20,9 @@
       location = "group:SourceKitten/sourcekitten.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Result/Result.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Stub/JungleGymStub.xcodeproj">
    </FileRef>
 </Workspace>

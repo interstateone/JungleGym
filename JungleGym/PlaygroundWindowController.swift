@@ -60,26 +60,33 @@ class PlaygroundWindowController: NSWindowController {
     }
 
     func executePlayground() {
-        do {
-            let simulator = try simulatorManager.allocateSimulator()
-            let session = ExecutionSession(simulator: simulator)
-            self.session = session
-
-            try session.prepare(with: playground.contents)
-
-            session.delegate = editorViewController
-
-            // Having troubles getting to the device property from Swift...
-            simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
-            if let initialSurface = try simulator.framebuffer().surface?.attach(simulatorViewController, on: DispatchQueue.main) {
-                simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+        simulatorManager.allocateSimulator() { result in
+            guard case let .success(simulator) = result else {
+                self.session = nil
+                print(result.error!)
+                return
             }
 
-            try session.execute()
-        }
-        catch {
-            session = nil
-            print(error)
+            do {
+                let session = ExecutionSession(simulator: simulator)
+                self.session = session
+
+                try session.prepare(with: self.playground.contents)
+
+                session.delegate = self.editorViewController
+
+                // Having troubles getting to the device property from Swift...
+                self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
+                if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
+                    self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+                }
+
+                session.execute()
+            }
+            catch {
+                self.session = nil
+                print(error)
+            }
         }
     }
 }
