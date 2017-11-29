@@ -15,13 +15,19 @@ public class SimulatorManager {
         case unableToCreateDeviceSet
     }
 
-    let control: FBSimulatorControl
+    private let control: FBSimulatorControl
+    public let availableSimulatorConfigurations: [FBSimulatorConfiguration]
 
-    init() throws {
+    public init() throws {
         let options = FBSimulatorManagementOptions()
         let config = FBSimulatorControlConfiguration(deviceSetPath: try SimulatorManager.deviceSetDirectory().path, options: options)
         let logger = FBControlCoreGlobalConfiguration.defaultLogger
         control = try FBSimulatorControl.withConfiguration(config, logger: logger)
+        availableSimulatorConfigurations = FBSimulatorConfiguration.allAvailableDefaultConfigurations(with: nil)
+            .filter { $0.os.families.isSubset(of: [
+                NSNumber(value: FBControlCoreProductFamily.familyiPhone.rawValue),
+                NSNumber(value: FBControlCoreProductFamily.familyiPad.rawValue)
+            ]) }
     }
 
     // create a new set in app support dir
@@ -40,11 +46,11 @@ public class SimulatorManager {
         return url
     }
 
-    public func allocateSimulator(_ completion: ((Result<FBSimulator, AnyError>) -> Void)? = nil) {
+    public func allocateSimulator(with configuration: FBSimulatorConfiguration, completion: ((Result<FBSimulator, AnyError>) -> Void)? = nil) {
         DispatchQueue.simulatorManager.async {
             Result(attempt: {
                 let simulator = try self.control.pool.allocateSimulator(
-                    with: FBSimulatorConfiguration.withDeviceModel(.modeliPhone6),
+                    with: configuration,
                     options: [.reuse, .create]
                 ).await()
 

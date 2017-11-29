@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import FBSimulatorControl
 
 class PlaygroundWindowController: NSWindowController {
     var splitViewController: NSSplitViewController!
@@ -14,7 +15,7 @@ class PlaygroundWindowController: NSWindowController {
     var simulatorViewController: SimulatorViewController!
 
     @IBOutlet weak var runButton: NSToolbarItem!
-    @IBOutlet weak var simulatorPopupButton: NSToolbarItem!
+    @IBOutlet weak var simulatorPopupButton: NSPopUpButton!
 
     var playground = Playground(contents: "") {
         didSet {
@@ -57,10 +58,20 @@ class PlaygroundWindowController: NSWindowController {
         simulatorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
 
         splitViewController.splitViewItems = [editorItem, simulatorItem]
+
+        simulatorPopupButton.removeAllItems()
+        simulatorPopupButton.addItems(withTitles: simulatorManager.availableSimulatorConfigurations.map { $0.device.model.rawValue })
+        simulatorPopupButton.selectItem(at: 0)
+
+        // Seems to need to happen on the next run loop
+        DispatchQueue.main.async {
+            self.updateSimulatorPopupButtonWidth()
+        }
     }
 
     func executePlayground() {
-        simulatorManager.allocateSimulator() { result in
+        let selectedConfiguration = simulatorManager.availableSimulatorConfigurations[simulatorPopupButton.indexOfSelectedItem]
+        simulatorManager.allocateSimulator(with: selectedConfiguration) { result in
             guard case let .success(simulator) = result else {
                 self.session = nil
                 print(result.error!)
@@ -89,12 +100,32 @@ class PlaygroundWindowController: NSWindowController {
             }
         }
     }
+
+    private let measuringPopupButton = NSPopUpButton()
+
+    /// sizeToFit will size for the widest menu item, but I want it to size for the _selected_ item
+    /// Use a hidden button to calculate the correct frame
+    private func updateSimulatorPopupButtonWidth() {
+        measuringPopupButton.removeAllItems()
+        measuringPopupButton.addItem(withTitle: simulatorPopupButton.selectedItem?.title ?? "")
+        measuringPopupButton.sizeToFit()
+
+        simulatorPopupButton.frame = NSRect(
+            origin: simulatorPopupButton.frame.origin,
+            size: measuringPopupButton.frame.size
+        )
+    }
 }
 
 extension PlaygroundWindowController {
     @IBAction
     func executePlayground(sender: Any?) {
         executePlayground()
+    }
+
+    @IBAction
+    func selectSimulator(sender: Any?) {
+        updateSimulatorPopupButtonWidth()
     }
 }
 

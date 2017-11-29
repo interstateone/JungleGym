@@ -712,7 +712,7 @@
                                 <toolbarItem implicitItemIdentifier="98CA28CA-C051-4D14-ABBE-432218188BFE" label="Simulator" paletteLabel="Simulator" id="v9l-WH-5qM">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="100" height="28"/>
-                                    <size key="maxSize" width="100" height="28"/>
+                                    <size key="maxSize" width="300" height="28"/>
                                     <popUpButton key="view" verticalHuggingPriority="750" id="y9D-3x-nfo">
                                         <rect key="frame" x="0.0" y="14" width="100" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -725,6 +725,9 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <connections>
+                                            <action selector="selectSimulatorWithSender:" target="B8D-0N-5wS" id="gVL-wp-0Vp"/>
+                                        </connections>
                                     </popUpButton>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -740,7 +743,7 @@
                     </window>
                     <connections>
                         <outlet property="runButton" destination="PEf-hP-yjn" id="xZo-0K-K4j"/>
-                        <outlet property="simulatorPopupButton" destination="v9l-WH-5qM" id="CG4-Pt-f1z"/>
+                        <outlet property="simulatorPopupButton" destination="y9D-3x-nfo" id="ou0-QF-srV"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
