@@ -17,13 +17,17 @@ class PlaygroundWindowController: NSWindowController {
     @IBOutlet weak var runButton: NSToolbarItem!
     @IBOutlet weak var simulatorPopupButton: NSPopUpButton!
 
-    var playground = Playground(contents: "") {
+    override var document: AnyObject? {
         didSet {
             if isWindowLoaded {
-                editorViewController.contents = playground.contents
+                editorViewController.contents = playground?.contents ?? ""
             }
         }
     }
+    var playground: Playground? {
+        return document as? Playground
+    }
+
     var simulatorManager: SimulatorManager!
     var session: ExecutionSession?
 
@@ -48,7 +52,7 @@ class PlaygroundWindowController: NSWindowController {
         editorItem.holdingPriority = NSLayoutConstraint.Priority(rawValue: 251)
         editorViewController.view.translatesAutoresizingMaskIntoConstraints = false
         editorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-        editorViewController.contents = playground.contents
+        editorViewController.contents = playground?.contents ?? ""
         editorViewController.delegate = self
 
         simulatorViewController = NSStoryboard.main.instantiateController(withIdentifier: .simulatorViewController) as! SimulatorViewController
@@ -70,6 +74,8 @@ class PlaygroundWindowController: NSWindowController {
     }
 
     func executePlayground() {
+        guard let playground = playground else { return }
+
         let selectedConfiguration = simulatorManager.availableSimulatorConfigurations[simulatorPopupButton.indexOfSelectedItem]
         simulatorManager.allocateSimulator(with: selectedConfiguration) { result in
             guard case let .success(simulator) = result else {
@@ -82,7 +88,7 @@ class PlaygroundWindowController: NSWindowController {
                 let session = ExecutionSession(simulator: simulator)
                 self.session = session
 
-                try session.prepare(with: self.playground.contents)
+                try session.prepare(with: playground.contents)
 
                 session.delegate = self.editorViewController
 
@@ -131,7 +137,7 @@ extension PlaygroundWindowController {
 
 extension PlaygroundWindowController: EditorViewDelegate {
     func editorTextDidChange(_ text: String) {
-        playground.contents = text
+        playground?.contents = text
     }
 }
 
@@ -141,4 +147,8 @@ extension NSStoryboard {
 
 extension NSStoryboard.Name {
     static let main = NSStoryboard.Name(rawValue: "Main")
+}
+
+extension NSStoryboard.SceneIdentifier {
+    static let playgroundWindowController = NSStoryboard.SceneIdentifier(rawValue: String(describing: PlaygroundWindowController.self))
 }
