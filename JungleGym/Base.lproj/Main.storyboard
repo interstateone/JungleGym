@@ -432,7 +432,7 @@
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="executePlaygroundWithSender:" target="B8D-0N-5wS" id="tF1-qw-phb"/>
+                                        <action selector="runOrStopWithSender:" target="B8D-0N-5wS" id="95Y-HG-ciH"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="98CA28CA-C051-4D14-ABBE-432218188BFE" label="Simulator" paletteLabel="Simulator" id="v9l-WH-5qM">

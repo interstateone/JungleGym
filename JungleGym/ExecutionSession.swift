@@ -62,10 +62,11 @@ public class ExecutionSession {
         }
     }
 
-    public func stop() {
+    public func stop(completion: (() -> Void)? = nil) {
         state = .stopping
         simulator.killApplication(withBundleID: "ca.brandonevans.JungleGymStub").onQueue(.main, map: { _ -> Void in
             self.teardown()
+            completion?()
         })
     }
 

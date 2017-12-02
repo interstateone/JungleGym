@@ -32,7 +32,16 @@ class PlaygroundWindowController: NSWindowController {
     }
 
     var simulatorManager: SimulatorManager!
-    var session: ExecutionSession?
+    var session: ExecutionSession? {
+        didSet {
+            if session != nil {
+                runButton.image = NSImage(named: .stop)
+            }
+            else {
+                runButton.image = NSImage(named: .run)
+            }
+        }
+    }
 
     override func windowDidLoad() {
         do {
@@ -130,8 +139,15 @@ class PlaygroundWindowController: NSWindowController {
 
 extension PlaygroundWindowController {
     @IBAction
-    func executePlayground(sender: Any?) {
-        executePlayground()
+    func runOrStop(sender: Any?) {
+        if let session = session {
+            session.stop() {
+                self.session = nil
+            }
+        }
+        else {
+            executePlayground()
+        }
     }
 
     @IBAction
@@ -149,7 +165,8 @@ extension PlaygroundWindowController: EditorViewDelegate {
 extension PlaygroundWindowController: ExecutionSessionDelegate {
     func stateChanged(to state: ExecutionSession.State) {
         guard let playground = playground else { return }
-        stateTextField.stringValue = "\(playground.displayName): \(String(describing: state).capitalized)"
+
+        stateTextField.stringValue = "\(playground.displayName ?? ""): \(String(describing: state).capitalized)"
     }
 }
 
@@ -163,4 +180,9 @@ extension NSStoryboard.Name {
 
 extension NSStoryboard.SceneIdentifier {
     static let playgroundWindowController = NSStoryboard.SceneIdentifier(rawValue: String(describing: PlaygroundWindowController.self))
+}
+
+extension NSImage.Name {
+    static let run = NSImage.Name(rawValue: "Run")
+    static let stop = NSImage.Name(rawValue: "Stop")
 }
