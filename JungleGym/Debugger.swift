@@ -55,6 +55,14 @@ public class Debugger {
         breakpoints.append(breakpoint)
     }
 
+    public func deleteAllBreakpoints() {
+        target.deleteAllBreakpoints()
+    }
+
+    public func detach() {
+        target.process.detach()
+    }
+
     public func attach(to pid: ProcessID) throws {
         var error: LLDBError?
         guard

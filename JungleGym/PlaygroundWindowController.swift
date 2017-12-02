@@ -141,8 +141,8 @@ extension PlaygroundWindowController {
     @IBAction
     func runOrStop(sender: Any?) {
         if let session = session {
-            session.stop() {
-                self.session = nil
+            session.stop() { [weak self] in
+                self?.session = nil
             }
         }
         else {

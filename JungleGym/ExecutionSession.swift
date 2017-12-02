@@ -26,7 +26,7 @@ public class ExecutionSession {
         }
     }
 
-    private let simulator: FBSimulator
+    public let simulator: FBSimulator
     private let debugger: Debugger
 
     public weak var delegate: ExecutionSessionDelegate?
@@ -114,8 +114,9 @@ public class ExecutionSession {
     }
 
     private func teardown() {
-        // TODO: Remove breakpoints
-        self.state = .finished
+        debugger.deleteAllBreakpoints()
+        debugger.detach()
+        state = .finished
     }
 
     // MARK: -
