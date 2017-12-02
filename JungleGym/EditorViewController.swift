@@ -15,7 +15,6 @@ protocol EditorViewDelegate: class {
 class EditorViewController: NSViewController {
     @IBOutlet private weak var scrollView: NSScrollView!
     @IBOutlet private weak var textView: NSTextView!
-    @IBOutlet private weak var stateLabel: NSTextField!
 
     private var rulerView: RulerView?
     private var syntaxHighligher: SwiftSyntaxHighlighter?
@@ -53,12 +52,6 @@ class EditorViewController: NSViewController {
     @objc
     func textDidChange(_ notification: Notification) {
         delegate?.editorTextDidChange(textView.string)
-    }
-}
-
-extension EditorViewController: ExecutionSessionDelegate {
-    func stateChanged(to state: ExecutionSession.State) {
-        stateLabel.stringValue = "\(state)"
     }
 }
 

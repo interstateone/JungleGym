@@ -17,11 +17,13 @@ class PlaygroundWindowController: NSWindowController {
 
     @IBOutlet weak var runButton: NSToolbarItem!
     @IBOutlet weak var simulatorPopupButton: NSPopUpButton!
+    @IBOutlet weak var stateTextField: NSTextField!
 
     override var document: AnyObject? {
         didSet {
             if isWindowLoaded {
                 editorViewController.contents = playground?.contents ?? ""
+                stateTextField.stringValue = playground?.displayName ?? ""
             }
         }
     }
@@ -72,6 +74,8 @@ class PlaygroundWindowController: NSWindowController {
         DispatchQueue.main.async {
             self.updateSimulatorPopupButtonWidth()
         }
+
+        stateTextField.stringValue = playground?.displayName ?? ""
     }
 
     func executePlayground() {
@@ -90,7 +94,7 @@ class PlaygroundWindowController: NSWindowController {
                 let debugger = try Debugger()
 
                 let session = ExecutionSession(simulator: simulator, debugger: debugger)
-                session.delegate = self.editorViewController
+                session.delegate = self
                 self.session = session
 
                 // Having troubles getting to the device property from Swift...
@@ -139,6 +143,13 @@ extension PlaygroundWindowController {
 extension PlaygroundWindowController: EditorViewDelegate {
     func editorTextDidChange(_ text: String) {
         playground?.contents = text
+    }
+}
+
+extension PlaygroundWindowController: ExecutionSessionDelegate {
+    func stateChanged(to state: ExecutionSession.State) {
+        guard let playground = playground else { return }
+        stateTextField.stringValue = "\(playground.displayName): \(String(describing: state).capitalized)"
     }
 }
 
