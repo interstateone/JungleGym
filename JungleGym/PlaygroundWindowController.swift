@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import LLDBWrapper
 import FBSimulatorControl
 
 class PlaygroundWindowController: NSWindowController {
@@ -85,12 +86,12 @@ class PlaygroundWindowController: NSWindowController {
             }
 
             do {
-                let session = ExecutionSession(simulator: simulator)
-                self.session = session
+                LLDBGlobals.initializeLLDBWrapper()
+                let debugger = try Debugger()
 
-                try session.prepare(with: playground.contents)
-
+                let session = ExecutionSession(simulator: simulator, debugger: debugger)
                 session.delegate = self.editorViewController
+                self.session = session
 
                 // Having troubles getting to the device property from Swift...
                 self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
@@ -98,7 +99,7 @@ class PlaygroundWindowController: NSWindowController {
                     self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
                 }
 
-                session.execute()
+                session.execute(playground.contents)
             }
             catch {
                 self.session = nil

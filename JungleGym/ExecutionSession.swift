@@ -17,36 +17,64 @@ public protocol ExecutionSessionDelegate: class {
 
 public class ExecutionSession {
     public enum State {
-        case waiting, preparing, ready, executing, finished
+        case waiting, preparing, ready, executing, stopping, finished
     }
 
-    public struct Error: Swift.Error {
-        let reason: String
-        static let invalidState: (State, State) -> Error = { from, to in Error(reason: "Unable to transition from \(from) to \(to)") }
-    }
-
-    var state = State.waiting {
+    public var state = State.waiting {
         didSet {
             delegate?.stateChanged(to: state)
         }
     }
 
-    let simulator: FBSimulator
-    var debugger: Debugger?
-    weak var delegate: ExecutionSessionDelegate?
+    private let simulator: FBSimulator
+    private let debugger: Debugger
 
-    public init(simulator: FBSimulator) {
+    public weak var delegate: ExecutionSessionDelegate?
+
+    public init(simulator: FBSimulator, debugger: Debugger) {
         self.simulator = simulator
+        self.debugger = debugger
     }
 
-    func prepare(with expression: String) throws {
+    public func execute(_ expression: String, completion: ((Result<Void, AnyError>) -> Void)? = nil) {
+        switch Result(attempt: { () -> URL in
+            try prepare(with: expression)
+            state = .executing
+
+            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
+            return try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
+        }) {
+        case let .success(appURL):
+            print(appURL)
+            simulator.launchApp(at: appURL) { result in
+                result
+                .flatMap { pid in
+                    Result(attempt: {
+                        print(pid)
+                        try self.debugger.attach(to: pid)
+                    })
+                }
+                .perform(completion, on: .main)
+            }
+        case let .failure(error):
+            Result(error: AnyError(error))
+                .perform(completion, on: .main)
+        }
+    }
+
+    public func stop() {
+        state = .stopping
+        simulator.killApplication(withBundleID: "ca.brandonevans.JungleGymStub").onQueue(.main, map: { _ -> Void in
+            self.teardown()
+        })
+    }
+
+    // MARK: - Private
+
+    private func prepare(with expression: String) throws {
         guard case .waiting = state else { throw Error.invalidState(state, .preparing) }
         state = .preparing
 
-        LLDBGlobals.initializeLLDBWrapper()
-
-        let debugger = try Debugger()
-        self.debugger = debugger
         debugger.addBreakpoint(named: "_executePlayground") { process, _, _ in
             print("TODO: evaluate playground expression")
             guard
@@ -61,7 +89,7 @@ public class ExecutionSession {
                 print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.functionName ?? "")
             }
 
-            let result = debugger.evaluate(expression: expression, in: frame)
+            let result = self.debugger.evaluate(expression: expression, in: frame)
             if let error = result?.error, error.error != 0 {
                 print("Error evaluating expression: " + error.string)
             }
@@ -76,44 +104,23 @@ public class ExecutionSession {
             print("TODO: tidy up")
             _ = process?.continue()
             // The stub should notify the host of this, but this will do until a communication mechanism is in place
-            self.state = .finished
+            self.state = .stopping
+            self.teardown()
             return true
         }
 
         state = .ready
     }
 
-    func execute(_ completion: ((Result<Void, AnyError>) -> Void)? = nil) {
-        guard
-            case .ready = state,
-            let debugger = debugger
-        else {
-            Result(error: AnyError(Error.invalidState(state, .executing)))
-                .perform(completion, on: .main)
-            return
-        }
+    private func teardown() {
+        // TODO: Remove breakpoints
+        self.state = .finished
+    }
 
-        state = .executing
+    // MARK: -
 
-        switch Result(attempt: { () -> URL in
-            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("ca.brandonevans.JungleGym")
-            return try StubAppGenerator.createStubApp(named: "stub", in: temporaryDirectory)
-        }) {
-        case let .success(appURL):
-            print(appURL)
-            simulator.launchApp(at: appURL) { result in
-                result
-                .flatMap { pid in
-                    Result(attempt: {
-                        print(pid)
-                        try debugger.attach(to: pid)
-                    })
-                }
-                .perform(completion, on: .main)
-            }
-        case let .failure(error):
-            Result(error: AnyError(error))
-                .perform(completion, on: .main)
-        }
+    public struct Error: Swift.Error {
+        let reason: String
+        static let invalidState: (State, State) -> Error = { from, to in Error(reason: "Unable to transition from \(from) to \(to)") }
     }
 }
