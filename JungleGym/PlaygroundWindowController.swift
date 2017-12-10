@@ -32,6 +32,13 @@ class PlaygroundWindowController: NSWindowController {
     }
 
     var simulatorManager: SimulatorManager!
+
+    /// A playground window controller has at most one simulator at a time
+    /// When a playground is first run, allocate an appropriate simulator in the pool
+    /// When the playground is closed, free the simulator
+    /// When a playground is run with a new simulator device type, free the current one and allocate a new appropriate simulator
+    var simulator: FBSimulator?
+
     var session: ExecutionSession? {
         didSet {
             if session != nil {
@@ -87,38 +94,60 @@ class PlaygroundWindowController: NSWindowController {
         stateTextField.stringValue = playground?.displayName ?? ""
     }
 
-    func executePlayground() {
+    func prepareSimulatorToExecutePlayground() {
         guard let playground = playground else { return }
-
         let selectedConfiguration = simulatorManager.availableSimulatorConfigurations[simulatorPopupButton.indexOfSelectedItem]
-        simulatorManager.allocateSimulator(with: selectedConfiguration) { result in
-            guard case let .success(simulator) = result else {
-                self.session = nil
-                print(result.error!)
-                return
-            }
 
+        if let simulator = simulator,
+           simulator.configuration == selectedConfiguration {
             do {
-                LLDBGlobals.initializeLLDBWrapper()
-                let debugger = try Debugger()
-
-                let session = ExecutionSession(simulator: simulator, debugger: debugger)
-                session.delegate = self
-                self.session = session
-
-                // Having troubles getting to the device property from Swift...
-                self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
-                if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
-                    self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
-                }
-
-                session.execute(playground.contents)
+                try execute(playground, with: simulator)
             }
             catch {
                 self.session = nil
                 print(error)
             }
         }
+        else {
+            if let simulator = simulator {
+                simulator.freeFromPool()
+            }
+
+            updateStatusMessage("Starting simulator...")
+            simulatorManager.allocateSimulator(with: selectedConfiguration) { result in
+                guard case let .success(simulator) = result else {
+                    self.session = nil
+                    self.simulator = nil
+                    print(result.error!)
+                    return
+                }
+                self.simulator = simulator
+
+                do {
+                    try self.execute(playground, with: simulator)
+                }
+                catch {
+                    self.session = nil
+                    print(error)
+                }
+            }
+        }
+    }
+
+    private func execute(_ playground: Playground, with simulator: FBSimulator) throws {
+        let debugger = try Debugger()
+
+        let session = ExecutionSession(simulator: simulator, debugger: debugger)
+        session.delegate = self
+        self.session = session
+
+        // Having troubles getting to the device property from Swift...
+        self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
+        if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
+            self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+        }
+
+        session.execute(playground.contents)
     }
 
     private let measuringPopupButton = NSPopUpButton()
@@ -135,6 +164,11 @@ class PlaygroundWindowController: NSWindowController {
             size: measuringPopupButton.frame.size
         )
     }
+
+    private func updateStatusMessage(_ message: String) {
+        guard let playground = playground else { return }
+        stateTextField.stringValue = "\(playground.displayName ?? ""): \(message)"
+    }
 }
 
 extension PlaygroundWindowController {
@@ -146,7 +180,7 @@ extension PlaygroundWindowController {
             }
         }
         else {
-            executePlayground()
+            prepareSimulatorToExecutePlayground()
         }
     }
 
@@ -164,9 +198,7 @@ extension PlaygroundWindowController: EditorViewDelegate {
 
 extension PlaygroundWindowController: ExecutionSessionDelegate {
     func stateChanged(to state: ExecutionSession.State) {
-        guard let playground = playground else { return }
-
-        stateTextField.stringValue = "\(playground.displayName ?? ""): \(String(describing: state).capitalized)"
+        updateStatusMessage(String(describing: state).capitalized)
     }
 }
 

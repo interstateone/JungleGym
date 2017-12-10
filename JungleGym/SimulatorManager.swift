@@ -30,6 +30,10 @@ public class SimulatorManager {
             ]) }
     }
 
+    deinit {
+        control.set.allSimulators.filter { $0.state == .booted }.forEach { $0.shutdown() }
+    }
+
     // create a new set in app support dir
     static func deviceSetDirectory() throws -> URL {
         let executableName = Bundle.main.infoDictionary?["CFBundleExecutable"] as! String // If _this_ fails, let's just crash
