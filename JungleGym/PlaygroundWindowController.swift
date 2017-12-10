@@ -15,9 +15,11 @@ class PlaygroundWindowController: NSWindowController {
     var editorViewController: EditorViewController!
     var simulatorViewController: SimulatorViewController!
 
-    @IBOutlet weak var runButton: NSToolbarItem!
-    @IBOutlet weak var simulatorPopupButton: NSPopUpButton!
-    @IBOutlet weak var stateTextField: NSTextField!
+    @IBOutlet weak var toolbarContainerView: NSView!
+    var runButton: NSButton!
+    var simulatorPopupButton: NSPopUpButton!
+    var stateTextField: NSTextField!
+    var simulatorPopupButtonWidth: NSLayoutConstraint!
 
     override var document: AnyObject? {
         didSet {
@@ -59,39 +61,8 @@ class PlaygroundWindowController: NSWindowController {
             assertionFailure(error.localizedDescription)
         }
 
-        splitViewController = NSSplitViewController()
-        splitViewController.view.wantsLayer = true
-        splitViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        splitViewController.splitView.dividerStyle = .paneSplitter
-        contentViewController = splitViewController
-
-        editorViewController = NSStoryboard.main.instantiateController(withIdentifier: .editorViewController) as! EditorViewController
-        let editorItem = NSSplitViewItem(viewController: editorViewController)
-        editorItem.canCollapse = false
-        editorItem.holdingPriority = NSLayoutConstraint.Priority(rawValue: 251)
-        editorViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        editorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-        editorViewController.contents = playground?.contents ?? ""
-        editorViewController.delegate = self
-
-        simulatorViewController = NSStoryboard.main.instantiateController(withIdentifier: .simulatorViewController) as! SimulatorViewController
-        let simulatorItem = NSSplitViewItem(viewController: simulatorViewController)
-        simulatorItem.canCollapse = false
-        simulatorViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        simulatorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-
-        splitViewController.splitViewItems = [editorItem, simulatorItem]
-
-        simulatorPopupButton.removeAllItems()
-        simulatorPopupButton.addItems(withTitles: simulatorManager.availableSimulatorConfigurations.map { $0.device.model.rawValue })
-        simulatorPopupButton.selectItem(at: 0)
-
-        // Seems to need to happen on the next run loop
-        DispatchQueue.main.async {
-            self.updateSimulatorPopupButtonWidth()
-        }
-
-        stateTextField.stringValue = playground?.displayName ?? ""
+        setupToolbar()
+        setupContentViews()
     }
 
     func prepareSimulatorToExecutePlayground() {
@@ -159,15 +130,88 @@ class PlaygroundWindowController: NSWindowController {
         measuringPopupButton.addItem(withTitle: simulatorPopupButton.selectedItem?.title ?? "")
         measuringPopupButton.sizeToFit()
 
-        simulatorPopupButton.frame = NSRect(
-            origin: simulatorPopupButton.frame.origin,
-            size: measuringPopupButton.frame.size
-        )
+        simulatorPopupButtonWidth.constant = measuringPopupButton.frame.width
     }
 
     private func updateStatusMessage(_ message: String) {
         guard let playground = playground else { return }
         stateTextField.stringValue = "\(playground.displayName ?? ""): \(message)"
+    }
+
+    private func setupToolbar() {
+        let runButton = NSButton(image: NSImage(named: .run)!, target: self, action: #selector(runOrStop(sender:)))
+        self.runButton = runButton
+        runButton.bezelStyle = .texturedRounded
+        runButton.sizeToFit()
+        runButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        runButton.setContentCompressionResistancePriority(.required, for: .vertical)
+        toolbarContainerView.addSubview(runButton, constraints: [
+            runButton.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor, constant: 1),
+            runButton.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            runButton.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor)
+        ])
+
+        let simulatorPopupButton = NSPopUpButton(title: "", target: self, action: #selector(selectSimulator(sender:)))
+        self.simulatorPopupButton = simulatorPopupButton
+        simulatorPopupButton.bezelStyle = .texturedRounded
+        toolbarContainerView.addSubview(simulatorPopupButton, constraints: [
+            simulatorPopupButton.leadingAnchor.constraint(equalTo: runButton.trailingAnchor, constant: 8),
+            simulatorPopupButton.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            simulatorPopupButton.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            simulatorPopupButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
+        ])
+        simulatorPopupButtonWidth = simulatorPopupButton.widthAnchor.constraint(equalToConstant: 100).with(priority: .defaultHigh)
+        simulatorPopupButtonWidth.isActive = true
+
+        let stateTextField = NSTextField(labelWithString: "")
+        self.stateTextField = stateTextField
+        stateTextField.isBezeled = true
+        stateTextField.bezelStyle = .roundedBezel
+        stateTextField.drawsBackground = true
+        stateTextField.isEditable = false
+        stateTextField.isSelectable = false
+        toolbarContainerView.addSubview(stateTextField, constraints: [
+            stateTextField.leadingAnchor.constraint(greaterThanOrEqualTo: simulatorPopupButton.trailingAnchor, constant: 8),
+            stateTextField.centerXAnchor.constraint(equalTo: toolbarContainerView.centerXAnchor),
+            stateTextField.centerYAnchor.constraint(equalTo: toolbarContainerView.centerYAnchor),
+            stateTextField.widthAnchor.constraint(equalToConstant: 400).with(priority: .defaultHigh)
+        ])
+
+        simulatorPopupButton.removeAllItems()
+        simulatorPopupButton.addItems(withTitles: simulatorManager.availableSimulatorConfigurations.map { $0.device.model.rawValue })
+        simulatorPopupButton.selectItem(at: 0)
+
+        // Seems to need to happen on the next run loop
+        DispatchQueue.main.async {
+            self.updateSimulatorPopupButtonWidth()
+        }
+
+        updateStatusMessage("")
+    }
+
+    private func setupContentViews() {
+        splitViewController = NSSplitViewController()
+        splitViewController.view.wantsLayer = true
+        splitViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        splitViewController.splitView.dividerStyle = .paneSplitter
+        contentViewController = splitViewController
+
+        editorViewController = NSStoryboard.main.instantiateController(withIdentifier: .editorViewController) as! EditorViewController
+        let editorItem = NSSplitViewItem(viewController: editorViewController)
+        editorItem.canCollapse = false
+        editorItem.holdingPriority = NSLayoutConstraint.Priority(rawValue: 251)
+        editorViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        editorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        editorViewController.contents = playground?.contents ?? ""
+        editorViewController.delegate = self
+
+        simulatorViewController = NSStoryboard.main.instantiateController(withIdentifier: .simulatorViewController) as! SimulatorViewController
+        let simulatorItem = NSSplitViewItem(viewController: simulatorViewController)
+        simulatorItem.canCollapse = false
+        simulatorViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        simulatorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+
+        splitViewController.splitViewItems = [editorItem, simulatorItem]
     }
 }
 

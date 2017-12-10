@@ -415,82 +415,23 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="796" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="500" height="300"/>
                         <toolbar key="toolbar" implicitIdentifier="742BE500-D5CA-43AC-A46D-9D9BBF4EB5A0" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="gJw-9K-f15">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6Ch-bX-ig7"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="xXt-dq-Kj1"/>
-                                <toolbarItem implicitItemIdentifier="7F11C5DB-E6DA-4C26-9946-6324AE532B00" label="Run" paletteLabel="Run" image="Run" id="PEf-hP-yjn">
+                                <toolbarItem implicitItemIdentifier="33BB6163-E3BF-4B59-A94D-F860178050CB" label="Custom View" paletteLabel="Custom View" tag="-1" id="BzN-ye-fLv">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="25"/>
-                                    <size key="maxSize" width="40" height="25"/>
-                                    <button key="view" verticalHuggingPriority="750" id="stG-37-Xog">
-                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Run" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FM9-HY-f19">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
-                                    <connections>
-                                        <action selector="runOrStopWithSender:" target="B8D-0N-5wS" id="95Y-HG-ciH"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="98CA28CA-C051-4D14-ABBE-432218188BFE" label="Simulator" paletteLabel="Simulator" id="v9l-WH-5qM">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="11" height="28"/>
-                                    <size key="maxSize" width="155" height="28"/>
-                                    <popUpButton key="view" verticalHuggingPriority="750" id="y9D-3x-nfo">
-                                        <rect key="frame" x="0.0" y="14" width="100" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="roundTextured" title="iPhone 6" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="GGx-fg-GBN" id="a4e-YP-jge">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
-                                            <menu key="menu" id="Ggt-ml-sON">
-                                                <items>
-                                                    <menuItem title="iPhone 6" state="on" id="GGx-fg-GBN"/>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                        <connections>
-                                            <action selector="selectSimulatorWithSender:" target="B8D-0N-5wS" id="gVL-wp-0Vp"/>
-                                        </connections>
-                                    </popUpButton>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0B55FA7B-D329-41B0-BC79-F2C6B8920F74" label="Custom View" paletteLabel="Custom View" id="6IH-Fq-vCS">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="96" height="22"/>
-                                    <size key="maxSize" width="96" height="22"/>
-                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="RT5-Iw-9F6">
-                                        <rect key="frame" x="0.0" y="14" width="96" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Iwe-A9-iY8">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </searchFieldCell>
-                                    </searchField>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="629672B5-9420-48E3-AD7F-D080E12086DA" label="Playground State" paletteLabel="Playground State" id="LSM-E5-Iml">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="250" height="22"/>
-                                    <size key="maxSize" width="250" height="22"/>
-                                    <textField key="view" verticalHuggingPriority="750" textCompletion="NO" id="Pie-5r-lnd">
-                                        <rect key="frame" x="0.0" y="14" width="250" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="test.playground" bezelStyle="round" id="vKQ-Md-mjc">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
+                                    <size key="minSize" width="163" height="36"/>
+                                    <size key="maxSize" width="65556" height="48"/>
+                                    <customView key="view" id="u8r-fD-VDO">
+                                        <rect key="frame" x="0.0" y="14" width="163" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </customView>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
-                                <toolbarItem reference="PEf-hP-yjn"/>
-                                <toolbarItem reference="v9l-WH-5qM"/>
-                                <toolbarItem reference="6Ch-bX-ig7"/>
-                                <toolbarItem reference="LSM-E5-Iml"/>
-                                <toolbarItem reference="xXt-dq-Kj1"/>
+                                <toolbarItem reference="BzN-ye-fLv"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -498,9 +439,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="runButton" destination="PEf-hP-yjn" id="xZo-0K-K4j"/>
-                        <outlet property="simulatorPopupButton" destination="y9D-3x-nfo" id="ou0-QF-srV"/>
-                        <outlet property="stateTextField" destination="Pie-5r-lnd" id="2La-C0-7SM"/>
+                        <outlet property="toolbarContainerView" destination="u8r-fD-VDO" id="Aes-Dx-nPh"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -572,7 +511,4 @@
             <point key="canvasLocation" x="-141" y="656"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Run" width="18" height="18"/>
-    </resources>
 </document>
