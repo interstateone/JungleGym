@@ -45,9 +45,13 @@ class PlaygroundWindowController: NSWindowController {
         didSet {
             if session != nil {
                 runButton.image = NSImage(named: .stop)
+                runButton.keyEquivalent = "."
+                runButton.keyEquivalentModifierMask = .command
             }
             else {
                 runButton.image = NSImage(named: .run)
+                runButton.keyEquivalent = "r"
+                runButton.keyEquivalentModifierMask = .command
             }
         }
     }
@@ -105,6 +109,17 @@ class PlaygroundWindowController: NSWindowController {
         }
     }
 
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(run(_:))?:
+            return session == nil
+        case #selector(stop(_:))?:
+            return session != nil
+        default:
+            return true
+        }
+    }
+
     private func execute(_ playground: Playground, with simulator: FBSimulator) throws {
         let debugger = try Debugger()
 
@@ -141,6 +156,8 @@ class PlaygroundWindowController: NSWindowController {
     private func setupToolbar() {
         let runButton = NSButton(image: NSImage(named: .run)!, target: self, action: #selector(runOrStop(sender:)))
         self.runButton = runButton
+        runButton.keyEquivalent = "r"
+        runButton.keyEquivalentModifierMask = .command
         runButton.bezelStyle = .texturedRounded
         runButton.sizeToFit()
         runButton.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -231,6 +248,20 @@ extension PlaygroundWindowController {
     @IBAction
     func selectSimulator(sender: Any?) {
         updateSimulatorPopupButtonWidth()
+    }
+
+    @IBAction
+    func run(_ sender: Any?) {
+        guard session == nil else { return }
+        prepareSimulatorToExecutePlayground()
+    }
+
+    @IBAction
+    func stop(_ sender: Any?) {
+        guard let session = session else { return }
+        session.stop() { [weak self] in
+            self?.session = nil
+        }
     }
 }
 

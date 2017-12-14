@@ -82,6 +82,17 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="fjJ-fd-eQs"/>
+                                        <menuItem title="Run" keyEquivalent="r" id="RKm-Sj-Ute">
+                                            <connections>
+                                                <action selector="run:" target="Ady-hI-5gd" id="aoh-rM-q4V"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Stop" keyEquivalent="." id="4gx-qX-Q38">
+                                            <connections>
+                                                <action selector="stop:" target="Ady-hI-5gd" id="VIJ-Qu-TLO"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
