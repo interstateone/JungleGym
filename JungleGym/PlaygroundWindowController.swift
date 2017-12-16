@@ -99,8 +99,7 @@ class PlaygroundWindowController: NSWindowController {
                 self.simulator = simulator
 
                 do {
-                    // Having troubles getting to the device property from Swift...
-                    self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
+                    self.simulatorViewController.simulatorScreenScale = simulator.mainScreenScale
                     if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
                         self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
                     }
