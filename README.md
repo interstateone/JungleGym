@@ -2,6 +2,8 @@
 
 Reverse-engineered Swift Playgrounds
 
+![](screenshot.png)
+
 ## Credits and Licenses
 
 - [FBSimulatorControl](https://github.com/facebook/FBSimulatorControl): BSD 3-clause
