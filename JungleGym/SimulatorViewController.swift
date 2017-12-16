@@ -11,6 +11,17 @@ import FBSimulatorControl
 
 class SimulatorViewController: NSViewController, FBFramebufferSurfaceConsumer {
     var simulatorScreenScale: CGFloat = 1.0
+    var currentSurfaceLayer: CALayer?
+
+    override func viewWillLayout() {
+        super.viewWillLayout()
+
+        // Update the layer's position, and prevent animating the change
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        currentSurfaceLayer?.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
+        CATransaction.commit()
+    }
 
     // MARK: - FBFramebufferSurfaceConsumer
 
@@ -18,8 +29,10 @@ class SimulatorViewController: NSViewController, FBFramebufferSurfaceConsumer {
         guard let surface = surface else { return }
         view.layer?.sublayers?.forEach { $0.removeFromSuperlayer() }
         let layer = CALayer()
+        self.currentSurfaceLayer = layer
         layer.contents = surface
         layer.frame = CGRect(x: 0, y: 0, width: CGFloat(IOSurfaceGetWidth(surface)) / simulatorScreenScale, height: CGFloat(IOSurfaceGetHeight(surface)) / simulatorScreenScale)
+        layer.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
         view.layer?.addSublayer(layer)
     }
 
