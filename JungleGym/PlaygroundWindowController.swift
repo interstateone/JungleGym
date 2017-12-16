@@ -99,6 +99,12 @@ class PlaygroundWindowController: NSWindowController {
                 self.simulator = simulator
 
                 do {
+                    // Having troubles getting to the device property from Swift...
+                    self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
+                    if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
+                        self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+                    }
+
                     try self.execute(playground, with: simulator)
                 }
                 catch {
@@ -126,12 +132,6 @@ class PlaygroundWindowController: NSWindowController {
         let session = ExecutionSession(simulator: simulator, debugger: debugger)
         session.delegate = self
         self.session = session
-
-        // Having troubles getting to the device property from Swift...
-        self.simulatorViewController.simulatorScreenScale = 3.0 // simulator.device.deviceType.mainScreenScale
-        if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
-            self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
-        }
 
         session.execute(playground.contents)
     }
