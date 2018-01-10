@@ -2,6 +2,10 @@
 
 Reverse-engineered Swift Playgrounds
 
+[Introductory blog post](https://brandonevans.ca/post/text/introducing-junglegym/)
+
+JungleGym is a work in progress, check the [issues](https://github.com/interstateone/JungleGym/issues) for outstanding work or to file bugs and feature requests.
+
 ![](screenshot.png)
 
 ## Requirements
