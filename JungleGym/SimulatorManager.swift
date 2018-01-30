@@ -79,14 +79,7 @@ extension FBSimulator {
     public func launchApp(at url: URL, completion: ((Result<ProcessID, AnyError>) -> Void)? = nil) {
         DispatchQueue.simulatorManager.async {
             Result(attempt: {
-                let infoPlistURL = url.appendingPathComponent("Info.plist")
-                let infoPlistData = try Data(contentsOf: infoPlistURL)
-                guard
-                    let infoPlist = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any],
-                    let bundleID = infoPlist["CFBundleIdentifier"] as? String
-                else {
-                    throw Error.invalidApplication
-                }
+                let bundleID = try self.bundleID(of: url)
 
                 let installedApplications = try self.installedApplications().await() as! [FBInstalledApplication]
                 if installedApplications.contains(where: { $0.bundle.bundleID == bundleID }) {
@@ -96,14 +89,7 @@ extension FBSimulator {
                 try self.installApplication(withPath: url.path).await()
 
                 let outputConfiguration = try FBProcessOutputConfiguration(stdOut: FBProcessOutputToFileDefaultLocation, stdErr: FBProcessOutputToFileDefaultLocation)
-                let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: [
-                    // From ProcessInfo.processInfo.environment in a real playground
-                    "DYLD_ROOT_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot",
-                    "DYLD_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator",
-                    "DYLD_FALLBACK_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks",
-                    "DYLD_FALLBACK_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib",
-                    "DYLD_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks"
-                    ], waitForDebugger: true, output: outputConfiguration)
+                let launchConfiguration = FBApplicationLaunchConfiguration(bundleID: bundleID, bundleName: nil, arguments: [], environment: self.environmentVariables, waitForDebugger: true, output: outputConfiguration)
 
                 _ = try? self.killApplication(withBundleID: bundleID).await()
 
@@ -113,6 +99,30 @@ extension FBSimulator {
             })
             .perform(completion, on: .main)
         }
+    }
+
+    private func bundleID(of url: URL) throws -> String {
+        let infoPlistURL = url.appendingPathComponent("Info.plist")
+        let infoPlistData = try Data(contentsOf: infoPlistURL)
+        guard
+            let infoPlist = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any],
+            let bundleID = infoPlist["CFBundleIdentifier"] as? String
+        else {
+            throw Error.invalidApplication
+        }
+
+        return bundleID
+    }
+
+    /// From ProcessInfo.processInfo.environment in a real playground
+    private var environmentVariables: [String: String] {
+        return [
+            "DYLD_ROOT_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot",
+            "DYLD_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator",
+            "DYLD_FALLBACK_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks",
+            "DYLD_FALLBACK_LIBRARY_PATH": "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib",
+            "DYLD_FRAMEWORK_PATH": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks"
+        ]
     }
 }
 
