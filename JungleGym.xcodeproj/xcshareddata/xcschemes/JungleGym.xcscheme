@@ -29,6 +29,16 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CA39DE2D2020043F0025E17D"
+               BuildableName = "JungleGymTests.xctest"
+               BlueprintName = "JungleGymTests"
+               ReferencedContainer = "container:JungleGym.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

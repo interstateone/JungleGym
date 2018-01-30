@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xcodebuild -workspace JungleGym.xcworkspace -scheme JungleGym -configuration Debug clean build test
+

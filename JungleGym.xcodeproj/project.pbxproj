@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3018621FC7DE7500F0F070 /* Playground.swift */; };
+		CA39DE312020043F0025E17D /* JungleGymTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE302020043F0025E17D /* JungleGymTests.swift */; };
 		CA4A41431FCE5379003FD021 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; };
 		CA4A41441FCE5379003FD021 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CA4A41461FCE61AD003FD021 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4A41451FCE61AD003FD021 /* Result.swift */; };
@@ -23,7 +24,6 @@
 		CA5075151FCD1B5900E4F0FB /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */; };
 		CA5075161FCD1B5900E4F0FB /* FBSimulatorControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CA5075171FCD1B5900E4F0FB /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */; };
-		CA50751F1FCD1B8A00E4F0FB /* LLDBWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA50751D1FCD1B7800E4F0FB /* LLDBWrapper.framework */; };
 		CA5075181FCD1B5900E4F0FB /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CA79A02F1FDDED9200BAA965 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79A02E1FDDED9200BAA965 /* Layout.swift */; };
 		CAF37A271FCD07A50080FFB9 /* RulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37A261FCD07A50080FFB9 /* RulerView.swift */; };
@@ -33,6 +33,16 @@
 		CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CBE1FC0BF300023DB72 /* Process.swift */; };
 		CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF37CC31FC165910023DB72 /* Debugger.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CA39DE332020043F0025E17D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA4BF2FC1FBE990700037C95 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA4BF3031FBE990800037C95;
+			remoteInfo = JungleGym;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		CAF37CAE1FBFF64A0023DB72 /* Embed Frameworks */ = {
@@ -53,6 +63,9 @@
 
 /* Begin PBXFileReference section */
 		CA3018621FC7DE7500F0F070 /* Playground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
+		CA39DE2E2020043F0025E17D /* JungleGymTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JungleGymTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA39DE302020043F0025E17D /* JungleGymTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JungleGymTests.swift; sourceTree = "<group>"; };
+		CA39DE322020043F0025E17D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA4A41421FCE5379003FD021 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4A41451FCE61AD003FD021 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
@@ -79,6 +92,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CA39DE2B2020043F0025E17D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA4BF3011FBE990800037C95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,11 +113,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA39DE2F2020043F0025E17D /* JungleGymTests */ = {
+			isa = PBXGroup;
+			children = (
+				CA39DE302020043F0025E17D /* JungleGymTests.swift */,
+				CA39DE322020043F0025E17D /* Info.plist */,
+			);
+			path = JungleGymTests;
+			sourceTree = "<group>";
+		};
 		CA4BF2FB1FBE990700037C95 = {
 			isa = PBXGroup;
 			children = (
 				CAF37A2C1FCD080A0080FFB9 /* README.md */,
 				CA4BF3061FBE990800037C95 /* JungleGym */,
+				CA39DE2F2020043F0025E17D /* JungleGymTests */,
 				CA4BF3051FBE990800037C95 /* Products */,
 				CA5075141FCD1B3700E4F0FB /* FBSimulatorControl.framework */,
 				CA5075121FCD1B3600E4F0FB /* SourceKittenFramework.framework */,
@@ -110,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				CA4BF3041FBE990800037C95 /* JungleGym.app */,
+				CA39DE2E2020043F0025E17D /* JungleGymTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,6 +181,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CA39DE2D2020043F0025E17D /* JungleGymTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA39DE372020043F0025E17D /* Build configuration list for PBXNativeTarget "JungleGymTests" */;
+			buildPhases = (
+				CA39DE2A2020043F0025E17D /* Sources */,
+				CA39DE2B2020043F0025E17D /* Frameworks */,
+				CA39DE2C2020043F0025E17D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CA39DE342020043F0025E17D /* PBXTargetDependency */,
+			);
+			name = JungleGymTests;
+			productName = JungleGymTests;
+			productReference = CA39DE2E2020043F0025E17D /* JungleGymTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CA4BF3031FBE990800037C95 /* JungleGym */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA4BF3141FBE990800037C95 /* Build configuration list for PBXNativeTarget "JungleGym" */;
@@ -176,10 +225,15 @@
 		CA4BF2FC1FBE990700037C95 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Brandon Evans";
 				TargetAttributes = {
+					CA39DE2D2020043F0025E17D = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CA4BF3031FBE990800037C95;
+					};
 					CA4BF3031FBE990800037C95 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -205,11 +259,19 @@
 			projectRoot = "";
 			targets = (
 				CA4BF3031FBE990800037C95 /* JungleGym */,
+				CA39DE2D2020043F0025E17D /* JungleGymTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CA39DE2C2020043F0025E17D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA4BF3021FBE990800037C95 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,7 +296,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\nIDENTITY=\"Mac Developer\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/LLDBWrapper.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/Result.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/SourceKittenFramework.framework/Versions/A\"";
+			shellScript = "if [[ $CONFIGURATION == \"Debug\" ]]; then\n    exit\nfi\n\nLOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\nIDENTITY=\"Mac Developer\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/LLDBWrapper.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/Result.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A/Frameworks/FBControlCore.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A/Frameworks/XCTestBootstrap.framework/Versions/A\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/FBSimulatorControl.framework/Versions/A\"\n\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/SourceKittenFramework.framework/Versions/A\"";
 		};
 		CAF37CBB1FC0B0D20023DB72 /* Build Stub and Copy as Resource */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -253,6 +315,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CA39DE2A2020043F0025E17D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA39DE312020043F0025E17D /* JungleGymTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA4BF3001FBE990800037C95 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +346,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CA39DE342020043F0025E17D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA4BF3031FBE990800037C95 /* JungleGym */;
+			targetProxy = CA39DE332020043F0025E17D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		CA4BF30D1FBE990800037C95 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -288,6 +366,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CA39DE352020043F0025E17D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z2R9WCWER2;
+				INFOPLIST_FILE = JungleGymTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.brandonevans.JungleGymTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JungleGym.app/Contents/MacOS/JungleGym";
+			};
+			name = Debug;
+		};
+		CA39DE362020043F0025E17D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z2R9WCWER2;
+				INFOPLIST_FILE = JungleGymTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.brandonevans.JungleGymTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JungleGym.app/Contents/MacOS/JungleGym";
+			};
+			name = Release;
+		};
 		CA4BF3121FBE990800037C95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Z2R9WCWER2;
@@ -427,6 +539,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CA39DE372020043F0025E17D /* Build configuration list for PBXNativeTarget "JungleGymTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA39DE352020043F0025E17D /* Debug */,
+				CA39DE362020043F0025E17D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CA4BF2FF1FBE990700037C95 /* Build configuration list for PBXProject "JungleGym" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
