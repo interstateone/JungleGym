@@ -122,6 +122,16 @@
 			path = JungleGymTests;
 			sourceTree = "<group>";
 		};
+		CA39DE7520203A000025E17D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
+				CA4A41451FCE61AD003FD021 /* Result.swift */,
+				CA79A02E1FDDED9200BAA965 /* Layout.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CA4BF2FB1FBE990700037C95 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				CAF37A2B1FCD07E30080FFB9 /* Editor */,
+				CA39DE7520203A000025E17D /* Extensions */,
 				CA4BF3071FBE990800037C95 /* AppDelegate.swift */,
 				CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */,
 				CAF37CB91FBFFC860023DB72 /* SimulatorManager.swift */,
@@ -157,10 +168,7 @@
 				CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */,
 				CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */,
 				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
-				CAF37CBE1FC0BF300023DB72 /* Process.swift */,
-				CA4A41451FCE61AD003FD021 /* Result.swift */,
 				CA3018621FC7DE7500F0F070 /* Playground.swift */,
-				CA79A02E1FDDED9200BAA965 /* Layout.swift */,
 				CA4BF30B1FBE990800037C95 /* Assets.xcassets */,
 				CA4BF30D1FBE990800037C95 /* Main.storyboard */,
 				CA4BF3101FBE990800037C95 /* Info.plist */,
