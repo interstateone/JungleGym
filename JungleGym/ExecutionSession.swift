@@ -22,7 +22,9 @@ public class ExecutionSession {
 
     public var state = State.waiting {
         didSet {
-            delegate?.stateChanged(to: state)
+            DispatchQueue.main.async {
+                self.delegate?.stateChanged(to: self.state)
+            }
         }
     }
 
