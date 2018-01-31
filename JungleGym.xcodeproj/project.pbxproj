@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3018621FC7DE7500F0F070 /* Playground.swift */; };
 		CA39DE312020043F0025E17D /* JungleGymTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE302020043F0025E17D /* JungleGymTests.swift */; };
+		CA39DE77202167B70025E17D /* ToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE76202167B70025E17D /* ToolbarViewController.swift */; };
 		CA4A41431FCE5379003FD021 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; };
 		CA4A41441FCE5379003FD021 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CA4A41461FCE61AD003FD021 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4A41451FCE61AD003FD021 /* Result.swift */; };
@@ -66,6 +67,7 @@
 		CA39DE2E2020043F0025E17D /* JungleGymTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JungleGymTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA39DE302020043F0025E17D /* JungleGymTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JungleGymTests.swift; sourceTree = "<group>"; };
 		CA39DE322020043F0025E17D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA39DE76202167B70025E17D /* ToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewController.swift; sourceTree = "<group>"; };
 		CA4A41421FCE5379003FD021 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA4A41451FCE61AD003FD021 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CA4AA7F21FC3E0E200113C8E /* ExecutionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionSession.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				CAF37CBC1FC0B3830023DB72 /* StubAppGenerator.swift */,
 				CAF37CC31FC165910023DB72 /* Debugger.swift */,
 				CA4AA7F61FC3EBD000113C8E /* PlaygroundWindowController.swift */,
+				CA39DE76202167B70025E17D /* ToolbarViewController.swift */,
 				CA4AA7F41FC3EB8A00113C8E /* EditorViewController.swift */,
 				CA4BF3091FBE990800037C95 /* SimulatorViewController.swift */,
 				CA3018621FC7DE7500F0F070 /* Playground.swift */,
@@ -338,6 +341,7 @@
 				CAF37CC41FC165910023DB72 /* Debugger.swift in Sources */,
 				CA79A02F1FDDED9200BAA965 /* Layout.swift in Sources */,
 				CAF37CBA1FBFFC860023DB72 /* SimulatorManager.swift in Sources */,
+				CA39DE77202167B70025E17D /* ToolbarViewController.swift in Sources */,
 				CAF37CBF1FC0BF300023DB72 /* Process.swift in Sources */,
 				CA4A41461FCE61AD003FD021 /* Result.swift in Sources */,
 				CA4AA7F71FC3EBD000113C8E /* PlaygroundWindowController.swift in Sources */,

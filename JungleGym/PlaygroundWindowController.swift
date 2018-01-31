@@ -14,18 +14,15 @@ class PlaygroundWindowController: NSWindowController {
     var splitViewController: NSSplitViewController!
     var editorViewController: EditorViewController!
     var simulatorViewController: SimulatorViewController!
+    var toolbarViewController: ToolbarViewController!
 
     @IBOutlet weak var toolbarContainerView: NSView!
-    var runButton: NSButton!
-    var simulatorPopupButton: NSPopUpButton!
-    var stateTextField: NSTextField!
-    var simulatorPopupButtonWidth: NSLayoutConstraint!
 
     override var document: AnyObject? {
         didSet {
             if isWindowLoaded {
                 editorViewController.contents = playground?.contents ?? ""
-                stateTextField.stringValue = playground?.displayName ?? ""
+                toolbarViewController.state.status = playground?.displayName ?? ""
             }
         }
     }
@@ -41,18 +38,11 @@ class PlaygroundWindowController: NSWindowController {
     /// When a playground is run with a new simulator device type, free the current one and allocate a new appropriate simulator
     var simulator: FBSimulator?
 
+    var selectedSimulatorConfiguration: FBSimulatorConfiguration?
+
     var session: ExecutionSession? {
         didSet {
-            if session != nil {
-                runButton.image = NSImage(named: .stop)
-                runButton.keyEquivalent = "."
-                runButton.keyEquivalentModifierMask = .command
-            }
-            else {
-                runButton.image = NSImage(named: .run)
-                runButton.keyEquivalent = "r"
-                runButton.keyEquivalentModifierMask = .command
-            }
+            toolbarViewController.state.running = session != nil
         }
     }
 
@@ -65,13 +55,28 @@ class PlaygroundWindowController: NSWindowController {
             assertionFailure(error.localizedDescription)
         }
 
-        setupToolbar()
         setupContentViews()
+
+        toolbarViewController.state.simulators = simulatorManager.availableSimulatorConfigurations.map { $0.device.model.rawValue }
+        updateStatusMessage("")
+    }
+
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(run(_:))?:
+            return session == nil
+        case #selector(stop(_:))?:
+            return session != nil
+        default:
+            return true
+        }
     }
 
     func prepareSimulatorToExecutePlayground() {
-        guard let playground = playground else { return }
-        let selectedConfiguration = simulatorManager.availableSimulatorConfigurations[simulatorPopupButton.indexOfSelectedItem]
+        guard
+            let playground = playground,
+            let selectedConfiguration = selectedSimulatorConfiguration
+        else { return }
 
         if let simulator = simulator,
            simulator.configuration == selectedConfiguration {
@@ -114,17 +119,6 @@ class PlaygroundWindowController: NSWindowController {
         }
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        switch menuItem.action {
-        case #selector(run(_:))?:
-            return session == nil
-        case #selector(stop(_:))?:
-            return session != nil
-        default:
-            return true
-        }
-    }
-
     private func execute(_ playground: Playground, with simulator: FBSimulator) throws {
         let debugger = try Debugger()
 
@@ -133,76 +127,6 @@ class PlaygroundWindowController: NSWindowController {
         self.session = session
 
         session.execute(playground.contents)
-    }
-
-    private let measuringPopupButton = NSPopUpButton()
-
-    /// sizeToFit will size for the widest menu item, but I want it to size for the _selected_ item
-    /// Use a hidden button to calculate the correct frame
-    private func updateSimulatorPopupButtonWidth() {
-        measuringPopupButton.removeAllItems()
-        measuringPopupButton.addItem(withTitle: simulatorPopupButton.selectedItem?.title ?? "")
-        measuringPopupButton.sizeToFit()
-
-        simulatorPopupButtonWidth.constant = measuringPopupButton.frame.width
-    }
-
-    private func updateStatusMessage(_ message: String) {
-        guard let playground = playground else { return }
-        stateTextField.stringValue = "\(playground.displayName ?? ""): \(message)"
-    }
-
-    private func setupToolbar() {
-        let runButton = NSButton(image: NSImage(named: .run)!, target: self, action: #selector(runOrStop(sender:)))
-        self.runButton = runButton
-        runButton.keyEquivalent = "r"
-        runButton.keyEquivalentModifierMask = .command
-        runButton.bezelStyle = .texturedRounded
-        runButton.sizeToFit()
-        runButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        runButton.setContentCompressionResistancePriority(.required, for: .vertical)
-        toolbarContainerView.addSubview(runButton, constraints: [
-            runButton.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor, constant: 1),
-            runButton.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
-            runButton.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor)
-        ])
-
-        let simulatorPopupButton = NSPopUpButton(title: "", target: self, action: #selector(selectSimulator(sender:)))
-        self.simulatorPopupButton = simulatorPopupButton
-        simulatorPopupButton.bezelStyle = .texturedRounded
-        toolbarContainerView.addSubview(simulatorPopupButton, constraints: [
-            simulatorPopupButton.leadingAnchor.constraint(equalTo: runButton.trailingAnchor, constant: 8),
-            simulatorPopupButton.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
-            simulatorPopupButton.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
-            simulatorPopupButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
-        ])
-        simulatorPopupButtonWidth = simulatorPopupButton.widthAnchor.constraint(equalToConstant: 100).with(priority: .defaultHigh)
-        simulatorPopupButtonWidth.isActive = true
-
-        let stateTextField = NSTextField(labelWithString: "")
-        self.stateTextField = stateTextField
-        stateTextField.isBezeled = true
-        stateTextField.bezelStyle = .roundedBezel
-        stateTextField.drawsBackground = true
-        stateTextField.isEditable = false
-        stateTextField.isSelectable = false
-        toolbarContainerView.addSubview(stateTextField, constraints: [
-            stateTextField.leadingAnchor.constraint(greaterThanOrEqualTo: simulatorPopupButton.trailingAnchor, constant: 8),
-            stateTextField.centerXAnchor.constraint(equalTo: toolbarContainerView.centerXAnchor),
-            stateTextField.centerYAnchor.constraint(equalTo: toolbarContainerView.centerYAnchor),
-            stateTextField.widthAnchor.constraint(equalToConstant: 400).with(priority: .defaultHigh)
-        ])
-
-        simulatorPopupButton.removeAllItems()
-        simulatorPopupButton.addItems(withTitles: simulatorManager.availableSimulatorConfigurations.map { $0.device.model.rawValue })
-        simulatorPopupButton.selectItem(at: 0)
-
-        // Seems to need to happen on the next run loop
-        DispatchQueue.main.async {
-            self.updateSimulatorPopupButtonWidth()
-        }
-
-        updateStatusMessage("")
     }
 
     private func setupContentViews() {
@@ -228,26 +152,26 @@ class PlaygroundWindowController: NSWindowController {
         simulatorViewController.view.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
 
         splitViewController.splitViewItems = [editorItem, simulatorItem]
+
+        toolbarViewController = NSStoryboard.main.instantiateController(withIdentifier: .toolbarViewController) as! ToolbarViewController
+        toolbarViewController.delegate = self
+        toolbarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        toolbarContainerView.addSubview(toolbarViewController.view, constraints: [
+            toolbarViewController.view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            toolbarViewController.view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor),
+            toolbarViewController.view.topAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
+            toolbarViewController.view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor)
+        ])
+    }
+
+    private func updateStatusMessage(_ message: String) {
+        guard let playground = playground else { return }
+        toolbarViewController.state.status = "\(playground.displayName ?? ""): \(message)"
     }
 }
 
 extension PlaygroundWindowController {
-    @IBAction
-    func runOrStop(sender: Any?) {
-        if let session = session {
-            session.stop() { [weak self] in
-                self?.session = nil
-            }
-        }
-        else {
-            prepareSimulatorToExecutePlayground()
-        }
-    }
-
-    @IBAction
-    func selectSimulator(sender: Any?) {
-        updateSimulatorPopupButtonWidth()
-    }
+    // MARK: Menu Actions
 
     @IBAction
     func run(_ sender: Any?) {
@@ -261,6 +185,23 @@ extension PlaygroundWindowController {
         session.stop() { [weak self] in
             self?.session = nil
         }
+    }
+}
+
+extension PlaygroundWindowController: ToolbarDelegate {
+    func runOrStop() {
+        if let session = session {
+            session.stop() { [weak self] in
+                self?.session = nil
+            }
+        }
+        else {
+            prepareSimulatorToExecutePlayground()
+        }
+    }
+
+    func selectSimulator(at index: Int) {
+        selectedSimulatorConfiguration = simulatorManager.availableSimulatorConfigurations[index]
     }
 }
 
@@ -286,9 +227,4 @@ extension NSStoryboard.Name {
 
 extension NSStoryboard.SceneIdentifier {
     static let playgroundWindowController = NSStoryboard.SceneIdentifier(rawValue: String(describing: PlaygroundWindowController.self))
-}
-
-extension NSImage.Name {
-    static let run = NSImage.Name(rawValue: "Run")
-    static let stop = NSImage.Name(rawValue: "Stop")
 }

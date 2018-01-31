@@ -415,7 +415,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-76" y="-88"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -456,6 +456,82 @@
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131" y="287"/>
+        </scene>
+        <!--Toolbar View Controller-->
+        <scene sceneID="0CZ-Ck-PeV">
+            <objects>
+                <viewController storyboardIdentifier="ToolbarViewController" id="IUy-IP-ED8" customClass="ToolbarViewController" customModule="JungleGym" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="68d-co-JaU">
+                        <rect key="frame" x="0.0" y="0.0" width="715" height="22"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Lsd-vE-jPz">
+                                <rect key="frame" x="8" y="-2" width="28" height="25"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Run" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0ss-h8-3nc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">r</string>
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="runOrStopWithSender:" target="IUy-IP-ED8" id="Ihr-Ma-MaZ"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MNU-rB-atV">
+                                <rect key="frame" x="158" y="0.0" width="400" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="400" id="fnj-dx-EDa"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Label" bezelStyle="round" id="9y4-nG-fL0">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2vi-pO-oc7">
+                                <rect key="frame" x="44" y="-2" width="100" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="cx0-iJ-uDP"/>
+                                    <constraint firstAttribute="width" priority="750" constant="100" id="fbM-wP-k2F"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="roundTextured" title="Item 1" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="xnd-7H-bSe" id="R5x-kB-QHM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="aYX-Qg-e24">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="xnd-7H-bSe"/>
+                                            <menuItem title="Item 2" id="iH6-Wp-zdd"/>
+                                            <menuItem title="Item 3" id="p7h-UJ-3fe"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="selectSimulatorWithSender:" target="IUy-IP-ED8" id="aer-ex-ucC"/>
+                                </connections>
+                            </popUpButton>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Lsd-vE-jPz" firstAttribute="leading" secondItem="68d-co-JaU" secondAttribute="leading" constant="8" id="82i-gU-zat"/>
+                            <constraint firstAttribute="bottom" secondItem="Lsd-vE-jPz" secondAttribute="bottom" id="8GG-AN-W3o"/>
+                            <constraint firstItem="Lsd-vE-jPz" firstAttribute="top" secondItem="68d-co-JaU" secondAttribute="top" id="8yb-RE-ggw"/>
+                            <constraint firstItem="2vi-pO-oc7" firstAttribute="leading" secondItem="Lsd-vE-jPz" secondAttribute="trailing" constant="8" id="N7M-am-2Ia"/>
+                            <constraint firstItem="2vi-pO-oc7" firstAttribute="top" secondItem="68d-co-JaU" secondAttribute="top" id="NHZ-DW-IcF"/>
+                            <constraint firstItem="MNU-rB-atV" firstAttribute="centerY" secondItem="68d-co-JaU" secondAttribute="centerY" id="W4r-9x-GLj"/>
+                            <constraint firstItem="MNU-rB-atV" firstAttribute="centerX" secondItem="68d-co-JaU" secondAttribute="centerX" id="dou-kO-0V1"/>
+                            <constraint firstAttribute="bottom" secondItem="2vi-pO-oc7" secondAttribute="bottom" id="e3G-qQ-pSo"/>
+                            <constraint firstItem="MNU-rB-atV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2vi-pO-oc7" secondAttribute="trailing" constant="8" id="mQo-oO-29E"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="runButton" destination="Lsd-vE-jPz" id="NHx-t1-b4c"/>
+                        <outlet property="simulatorPopupButton" destination="2vi-pO-oc7" id="C62-nu-fQU"/>
+                        <outlet property="simulatorPopupButtonWidth" destination="fbM-wP-k2F" id="1kH-0M-jc4"/>
+                        <outlet property="stateTextField" destination="MNU-rB-atV" id="gWj-XT-y4C"/>
+                    </connections>
+                </viewController>
+                <customObject id="TeW-HJ-0T6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="172" y="12"/>
         </scene>
         <!--Simulator View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -522,4 +598,7 @@
             <point key="canvasLocation" x="-141" y="656"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Run" width="18" height="18"/>
+    </resources>
 </document>
