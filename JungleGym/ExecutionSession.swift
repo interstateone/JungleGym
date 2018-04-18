@@ -82,14 +82,14 @@ public class ExecutionSession {
             print("TODO: evaluate playground expression")
             guard
                 let process = process,
-                let frame = process.allThreads.first?.allFrames.flatMap({ $0 }).first
+                let frame = process.allThreads.first?.allFrames.compactMap({ $0 }).first
                 else { return true }
 
             if process.state != .running {
                 print("---")
                 print("State: \(process.state)")
-                print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.lineEntry ?? "")
-                print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.functionName ?? "")
+                print(process.allThreads.first?.allFrames.compactMap { $0 }.first?.lineEntry ?? "")
+                print(process.allThreads.first?.allFrames.compactMap { $0 }.first?.functionName ?? "")
             }
 
             let result = self.debugger.evaluate(expression: expression, in: frame)

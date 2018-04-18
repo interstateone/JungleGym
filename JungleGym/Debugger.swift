@@ -87,8 +87,8 @@ public class Debugger {
                     print("---")
                     print("State: " + self.debugger.string(of: process.state))
                     if process.state != .running {
-                        print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.lineEntry ?? "")
-                        print(process.allThreads.first?.allFrames.flatMap { $0 }.first?.functionName ?? "")
+                        print(process.allThreads.first?.allFrames.compactMap { $0 }.first?.lineEntry ?? "")
+                        print(process.allThreads.first?.allFrames.compactMap { $0 }.first?.functionName ?? "")
                     }
                 }
             }
