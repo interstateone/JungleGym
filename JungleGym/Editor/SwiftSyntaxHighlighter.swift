@@ -86,11 +86,10 @@ class SwiftSyntaxHighlighter: NSObject, NSTextStorageDelegate, NSLayoutManagerDe
     }
 
     func parseString(string: String) -> [Token]? {
-        if string.isEmpty {
-            return []
-        }
-
-        let syntaxMap = SyntaxMap(file: File(contents: string))
+        guard
+            !string.isEmpty,
+            let syntaxMap = try? SyntaxMap(file: File(contents: string))
+        else { return [] }
 
         return syntaxMap.tokens.map { token in
             return Token(kind: token.type, range: NSRange(location: token.offset, length: token.length))
