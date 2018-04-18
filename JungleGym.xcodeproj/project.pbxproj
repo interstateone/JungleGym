@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA3018631FC7DE7500F0F070 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3018621FC7DE7500F0F070 /* Playground.swift */; };
-		CA39DE312020043F0025E17D /* JungleGymTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE302020043F0025E17D /* JungleGymTests.swift */; };
+		CA39DE312020043F0025E17D /* ToolbarViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE302020043F0025E17D /* ToolbarViewControllerTests.swift */; };
 		CA39DE77202167B70025E17D /* ToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39DE76202167B70025E17D /* ToolbarViewController.swift */; };
 		CA4A41431FCE5379003FD021 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; };
 		CA4A41441FCE5379003FD021 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A41421FCE5379003FD021 /* Result.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -65,7 +65,7 @@
 /* Begin PBXFileReference section */
 		CA3018621FC7DE7500F0F070 /* Playground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
 		CA39DE2E2020043F0025E17D /* JungleGymTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JungleGymTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA39DE302020043F0025E17D /* JungleGymTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JungleGymTests.swift; sourceTree = "<group>"; };
+		CA39DE302020043F0025E17D /* ToolbarViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewControllerTests.swift; sourceTree = "<group>"; };
 		CA39DE322020043F0025E17D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA39DE76202167B70025E17D /* ToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarViewController.swift; sourceTree = "<group>"; };
 		CA4A41421FCE5379003FD021 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,7 +118,7 @@
 		CA39DE2F2020043F0025E17D /* JungleGymTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA39DE302020043F0025E17D /* JungleGymTests.swift */,
+				CA39DE302020043F0025E17D /* ToolbarViewControllerTests.swift */,
 				CA39DE322020043F0025E17D /* Info.plist */,
 			);
 			path = JungleGymTests;
@@ -330,7 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA39DE312020043F0025E17D /* JungleGymTests.swift in Sources */,
+				CA39DE312020043F0025E17D /* ToolbarViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

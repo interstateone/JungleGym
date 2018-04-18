@@ -43,7 +43,7 @@ final class ToolbarViewController: NSViewController {
 
             stateTextField.stringValue = state.status
 
-            if oldValue.simulators != state.simulators {
+            if oldValue.simulators != state.simulators || state.simulators.isEmpty {
                 updateSimulators()
             }
 
