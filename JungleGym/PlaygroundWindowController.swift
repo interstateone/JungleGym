@@ -104,9 +104,14 @@ class PlaygroundWindowController: NSWindowController {
                 self.simulator = simulator
 
                 do {
-                    self.simulatorViewController.simulatorScreenScale = simulator.mainScreenScale
-                    if let initialSurface = try simulator.framebuffer().surface?.attach(self.simulatorViewController, on: DispatchQueue.main) {
-                        self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+                    if let screenScale = simulator.screenInfo?.scale {
+                        self.simulatorViewController.simulatorScreenScale = CGFloat(screenScale)
+                    }
+                    DispatchQueue.simulatorManager.async {
+                        if let possibleInitialSurface = try? simulator.connectToFramebuffer().await().surface?.attach(self.simulatorViewController, on: DispatchQueue.main),
+                           let initialSurface = possibleInitialSurface {
+                            self.simulatorViewController.didChange(initialSurface.takeUnretainedValue())
+                        }
                     }
 
                     try self.execute(playground, with: simulator)

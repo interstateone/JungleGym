@@ -23,7 +23,7 @@ public class SimulatorManager {
         let config = FBSimulatorControlConfiguration(deviceSetPath: try SimulatorManager.deviceSetDirectory().path, options: options)
         let logger = FBControlCoreGlobalConfiguration.defaultLogger
         control = try FBSimulatorControl.withConfiguration(config, logger: logger)
-        availableSimulatorConfigurations = FBSimulatorConfiguration.allAvailableDefaultConfigurations(with: nil)
+        availableSimulatorConfigurations = FBSimulatorConfiguration.allAvailableDefaultConfigurations(with: logger)
             .filter { $0.os.families.isSubset(of: [
                 NSNumber(value: FBControlCoreProductFamily.familyiPhone.rawValue),
                 NSNumber(value: FBControlCoreProductFamily.familyiPad.rawValue)
@@ -60,7 +60,7 @@ public class SimulatorManager {
 
                 if simulator.state != .booted {
                     print("Booting Simulator \(simulator)")
-                    let config = FBSimulatorBootConfiguration.default.withOptions([.enableDirectLaunch, .awaitServices])
+                    let config = FBSimulatorBootConfiguration.default.withOptions([.enableDirectLaunch, .verifyUsable])
                     try simulator.boot(with: config).await()
                 }
 
