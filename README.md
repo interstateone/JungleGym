@@ -2,6 +2,8 @@
 
 Reverse-engineered Swift Playgrounds
 
+[![Build Status](https://travis-ci.org/interstateone/JungleGym.svg?branch=master)](https://travis-ci.org/interstateone/JungleGym)
+
 [Introductory blog post](https://brandonevans.ca/post/text/introducing-junglegym/)
 
 JungleGym is a work in progress, check the [issues](https://github.com/interstateone/JungleGym/issues) for outstanding work or to file bugs and feature requests.
